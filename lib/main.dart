@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
+import 'widgets/login.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -31,9 +33,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
-    List _isHovering = [false, false, false, false];
-
     return Scaffold(
       body: SliderMenuContainer(
         sliderMenu: LayoutBuilder(
@@ -80,26 +79,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
         ),
-        sliderMain: FlutterLogin(
-          title: 'Canteen Inventory System',
-          logo: 'assets/food_logo.png',
-          onLogin: _authUser,
-          onSignup: _authUser,
-          onRecoverPassword: (_) {
-            return null;
-          },
-          onSubmitAnimationCompleted: () {
-            Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => Container(),
-              ),
-            );
-          },
-          showDebugButtons: true,
-        ),
+        sliderMain: Login(),
       ),
     );
   }
-
-  Future<String> _authUser(LoginData p1) {}
 }
