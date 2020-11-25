@@ -2,7 +2,16 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
+  @override
+  _DashboardPageState createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  List<String> listItems = ['Items', 'Purchase', 'Sales', 'Report'];
+
+  int selectedItem = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,69 +23,110 @@ class DashboardPage extends StatelessWidget {
               vertical: 8,
               horizontal: 16,
             ),
-            child: ListView(
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      child: Icon(
-                        Icons.face,
-                        size: constraints.maxWidth / 3.0,
+            child: LayoutBuilder(
+              builder: (context, constraints) => ListView(
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        child: Icon(
+                          Icons.face,
+                          size: constraints.maxWidth / 3.0,
+                        ),
+                        maxRadius: constraints.maxWidth / 5.0,
                       ),
-                      maxRadius: constraints.maxWidth / 5.0,
-                    ),
-                    SizedBox(width: 7),
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Text(
-                            'Name',
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
-                          Text(
-                            'Role',
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
-                        ],
+                      SizedBox(width: 7),
+                      Expanded(
+                        child: Column(
+                          children: [
+                            Text(
+                              'Name',
+                              style: Theme.of(context).textTheme.headline2,
+                            ),
+                            Text(
+                              'Role',
+                              style: Theme.of(context).textTheme.headline2,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                listItem('Items', context),
-                SizedBox(
-                  height: 8,
-                ),
-                listItem('Purchase', context),
-                SizedBox(
-                  height: 8,
-                ),
-                listItem('Sales', context),
-                SizedBox(
-                  height: 8,
-                ),
-                listItem('Report', context),
-              ],
+                    ],
+                  ),
+                  SizedBox(
+                    height: 16,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = 0;
+                      });
+                    },
+                    child: listItem(context, 'Items', constraints),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = 1;
+                      });
+                    },
+                    child: listItem(context, 'Purchase', constraints),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = 2;
+                      });
+                    },
+                    child: listItem(context, 'Sales', constraints),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = 3;
+                      });
+                    },
+                    child: listItem(context, 'Report', constraints),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-        sliderMain: Container(),
+        sliderMain: listDetail(context, selectedItem),
       ),
     );
   }
 
-  Widget listItem(String title, BuildContext context) {
+  Widget listItem(BuildContext context, String title, BoxConstraints size) {
     return Container(
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.headline1,
+      width: size.maxWidth,
+      child: Center(
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.headline1,
+        ),
       ),
     );
   }
 
-  Widget listDetail(String listItemTitle, BuildContext context) {
+  Widget listDetail(BuildContext context, int listItemTitle) {
+    return ListView(
+      children: [
+
+      ]
+    );
+  }
+
+  Widget itemsDetail(BuildContext context){
     return Container();
   }
 }

@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         textTheme: TextTheme(
           // MenuListItems
-          headline1: GoogleFonts.openSans(fontSize: 24,),
+          headline1: GoogleFonts.openSans(fontSize: 28,),
           // ProfileText
           headline2: GoogleFonts.roboto(fontSize: 20,fontWeight: FontWeight.w500),
         ),
@@ -41,8 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-      // Login(),
-      DashboardPage(),
+      Login(),
     );
   }
 }
