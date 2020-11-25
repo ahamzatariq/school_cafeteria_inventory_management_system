@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:flutter_web/pages/dashboard_page.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class Login extends StatelessWidget {
         onSubmitAnimationCompleted: () {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => Container(),
+              builder: (context) => DashboardPage(),
             ),
           );
         },
