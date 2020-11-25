@@ -18,9 +18,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.teal,
         textTheme: TextTheme(
           // MenuListItems
-          headline1: GoogleFonts.openSans(fontSize: 28,),
+          headline1: GoogleFonts.openSans(
+            fontSize: 28,
+          ),
           // ProfileText
-          headline2: GoogleFonts.roboto(fontSize: 20,fontWeight: FontWeight.w500),
+          headline2:
+              GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w500),
         ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),

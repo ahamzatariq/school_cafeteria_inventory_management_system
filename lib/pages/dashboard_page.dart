@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
@@ -101,7 +103,9 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
         ),
-        sliderMain: listDetail(context, selectedItem),
+        sliderMain: LayoutBuilder(
+            builder: (context, constraints) =>
+                listDetail(context, selectedItem, constraints)),
       ),
     );
   }
@@ -118,15 +122,63 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget listDetail(BuildContext context, int listItemTitle) {
-    return ListView(
-      children: [
-
-      ]
-    );
+  Widget listDetail(
+      BuildContext context, int listItemTitle, BoxConstraints constraints) {
+    return ListView(children: [
+      if (listItemTitle == 0) itemsDetail(context, constraints),
+      if (listItemTitle == 1) Container(),
+      if (listItemTitle == 2) Container(),
+      if (listItemTitle == 3) Container(),
+      Container()
+    ]);
   }
 
-  Widget itemsDetail(BuildContext context){
-    return Container();
+  Widget itemsDetail(BuildContext context, BoxConstraints constraints) {
+    return Container(
+      height: constraints.maxHeight,
+      width: constraints.maxWidth,
+      child: Center(
+        child: Container(
+          height: constraints.maxHeight / 3,
+          width: constraints.maxWidth / 3,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Card(
+                  color: Theme.of(context).primaryColorLight,
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: ListTile(
+                    leading: Icon(Icons.add),
+                    title: Text(
+                      'Add Item',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16),
+                Card(
+                  color: Theme.of(context).primaryColorLight,
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                  child: ListTile(
+                    leading: Icon(Icons.list),
+                    title: Text(
+                      'View Items',
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
