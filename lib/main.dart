@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web/pages/dashboard_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+
 import 'widgets/login.dart';
 
 void main() {
@@ -13,6 +16,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.teal,
+        textTheme: TextTheme(
+          // MenuListItems
+          headline1: GoogleFonts.openSans(fontSize: 24,),
+          // ProfileText
+          headline2: GoogleFonts.roboto(fontSize: 20,fontWeight: FontWeight.w500),
+        ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -31,7 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Login(),
+      body:
+      // Login(),
+      DashboardPage(),
     );
   }
 }
