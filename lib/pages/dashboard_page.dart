@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -57,18 +58,16 @@ class _DashboardPageState extends State<DashboardPage> {
                   SizedBox(
                     height: 16,
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 0;
-                      });
+                      setState(() => selectedItem = 0);
                     },
                     child: listItem(context, 'Items', constraints),
                   ),
                   SizedBox(
                     height: 8,
                   ),
-                  GestureDetector(
+                  InkWell(
                     onTap: () {
                       setState(() {
                         selectedItem = 1;
@@ -139,8 +138,8 @@ class _DashboardPageState extends State<DashboardPage> {
       width: constraints.maxWidth,
       child: Center(
         child: Container(
-          height: constraints.maxHeight / 3,
-          width: constraints.maxWidth / 3,
+          height: constraints.maxHeight / 4,
+          width: constraints.maxWidth / 4,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -151,11 +150,94 @@ class _DashboardPageState extends State<DashboardPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: ListTile(
-                    leading: Icon(Icons.add),
-                    title: Text(
-                      'Add Item',
-                      style: Theme.of(context).textTheme.headline1,
+                  child: InkWell(
+                    onTap: () {
+                      showMaterialModalBottomSheet(
+                        context: context,
+                        elevation: 6,
+                        builder: (context) => SingleChildScrollView(
+                          controller: ModalScrollController.of(context),
+                          child: Container(
+                            height: constraints.maxHeight * 0.5,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 22,
+                                horizontal: constraints.maxWidth / 3),
+                            child: Form(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  TextFormField(
+                                    keyboardType: TextInputType.text,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                    decoration:
+                                        InputDecoration(labelText: 'Item Name'),
+                                  ),
+                                  TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                    decoration: InputDecoration(
+                                        labelText: 'Item Quantity'),
+                                  ),
+                                  TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                    decoration: InputDecoration(
+                                        labelText: 'Item Buying Price'),
+                                  ),
+                                  TextFormField(
+                                    keyboardType: TextInputType.number,
+                                    style:
+                                        Theme.of(context).textTheme.headline3,
+                                    decoration: InputDecoration(
+                                        labelText: 'Item Selling Price'),
+                                  ),
+                                  Spacer(),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Material(
+                                      elevation: 6,
+                                      color:
+                                          Theme.of(context).primaryColorLight,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                      ),
+                                      child: Container(
+                                        padding: EdgeInsets.all(8),
+                                        width: 200,
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.add),
+                                            SizedBox(width: 8),
+                                            Text(
+                                              'Add Item',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .headline1,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.add),
+                      title: Text(
+                        'Add Item',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
                     ),
                   ),
                 ),
@@ -166,11 +248,25 @@ class _DashboardPageState extends State<DashboardPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0),
                   ),
-                  child: ListTile(
-                    leading: Icon(Icons.list),
-                    title: Text(
-                      'View Items',
-                      style: Theme.of(context).textTheme.headline1,
+                  child: InkWell(
+                    onTap: () {
+                      showMaterialModalBottomSheet(
+                        context: context,
+                        builder: (context) => SingleChildScrollView(
+                          controller: ModalScrollController.of(context),
+                          child: Container(
+                            height: constraints.maxHeight * 0.7,
+                            color: Colors.purple,
+                          ),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.list),
+                      title: Text(
+                        'View Items',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
                     ),
                   ),
                 ),

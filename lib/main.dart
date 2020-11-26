@@ -22,8 +22,15 @@ class MyApp extends StatelessWidget {
             fontSize: 28,
           ),
           // ProfileText
-          headline2:
-              GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.w500),
+          headline2: GoogleFonts.roboto(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
+          //TextFields
+          headline3: GoogleFonts.mukta(
+            fontSize: 18,
+            fontWeight: FontWeight.w300,
+          ),
         ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -43,8 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      Login(),
+      body: DashboardPage(),
+      // Login(),
     );
   }
 }

@@ -35,6 +35,8 @@ dev_dependencies:
   flutter_login: ^1.0.14
   flutter_slider_drawer: ^1.0.3
   google_fonts: ^1.1.1
+  modal_bottom_sheet: ^1.0.0+1
+
 
 
 
