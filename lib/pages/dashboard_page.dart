@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_web/pages/items_table.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
@@ -124,7 +125,11 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget listDetail(
       BuildContext context, int listItemTitle, BoxConstraints constraints) {
     return ListView(children: [
-      if (listItemTitle == 0) itemsDetail(context, constraints),
+      if (listItemTitle == 0)
+        LayoutBuilder(
+          builder: (context, constraints) =>
+              ItemsTable(constraints: constraints),
+        ),
       if (listItemTitle == 1) Container(),
       if (listItemTitle == 2) Container(),
       if (listItemTitle == 3) Container(),
@@ -250,16 +255,9 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   child: InkWell(
                     onTap: () {
-                      showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) => SingleChildScrollView(
-                          controller: ModalScrollController.of(context),
-                          child: Container(
-                            height: constraints.maxHeight * 0.7,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      );
+                      print('InkWell');
+                      Navigator.pushReplacementNamed(
+                          context, ItemsTable.routeName);
                     },
                     child: ListTile(
                       leading: Icon(Icons.list),

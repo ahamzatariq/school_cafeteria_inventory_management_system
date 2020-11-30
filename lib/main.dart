@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/pages/dashboard_page.dart';
+import 'package:flutter_web/pages/items_table.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'widgets/login.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        ItemsTable.routeName: (context) => ItemsTable(),
+      },
     );
   }
 }
