@@ -12,9 +12,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  List<String> listItems = ['Items', 'Purchase', 'Sales', 'Report'];
-
   int selectedItem = 0;
+  List<bool> selectedItemList = [true, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +60,16 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() => selectedItem = 0);
+                      setState(() {
+                        selectedItem = 0;
+                        selectedItemList[0] = true;
+                        selectedItemList[1] = false;
+                        selectedItemList[2] = false;
+                        selectedItemList[3] = false;
+                      });
                     },
-                    child: listItem(context, 'Items', constraints),
+                    child: listItem(
+                        context, 'Items', constraints, selectedItemList[0]),
                   ),
                   SizedBox(
                     height: 8,
@@ -72,9 +78,14 @@ class _DashboardPageState extends State<DashboardPage> {
                     onTap: () {
                       setState(() {
                         selectedItem = 1;
+                        selectedItemList[0] = false;
+                        selectedItemList[1] = true;
+                        selectedItemList[2] = false;
+                        selectedItemList[3] = false;
                       });
                     },
-                    child: listItem(context, 'Purchase', constraints),
+                    child: listItem(
+                        context, 'Purchase', constraints, selectedItemList[1]),
                   ),
                   SizedBox(
                     height: 8,
@@ -83,9 +94,14 @@ class _DashboardPageState extends State<DashboardPage> {
                     onTap: () {
                       setState(() {
                         selectedItem = 2;
+                        selectedItemList[0] = false;
+                        selectedItemList[1] = false;
+                        selectedItemList[2] = true;
+                        selectedItemList[3] = false;
                       });
                     },
-                    child: listItem(context, 'Sales', constraints),
+                    child: listItem(
+                        context, 'Sales', constraints, selectedItemList[2]),
                   ),
                   SizedBox(
                     height: 8,
@@ -94,9 +110,14 @@ class _DashboardPageState extends State<DashboardPage> {
                     onTap: () {
                       setState(() {
                         selectedItem = 3;
+                        selectedItemList[0] = false;
+                        selectedItemList[1] = false;
+                        selectedItemList[2] = false;
+                        selectedItemList[3] = true;
                       });
                     },
-                    child: listItem(context, 'Report', constraints),
+                    child: listItem(
+                        context, 'Report', constraints, selectedItemList[3]),
                   ),
                 ],
               ),
@@ -110,13 +131,17 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget listItem(BuildContext context, String title, BoxConstraints size) {
+  Widget listItem(
+      BuildContext context, String title, BoxConstraints size, bool selected) {
     return Container(
       width: size.maxWidth,
+      color: selected ? Theme.of(context).primaryColorDark : Colors.transparent,
       child: Center(
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline1,
+          style: selected
+              ? Theme.of(context).textTheme.headline4
+              : Theme.of(context).textTheme.headline1,
         ),
       ),
     );
