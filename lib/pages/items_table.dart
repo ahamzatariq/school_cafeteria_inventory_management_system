@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -18,81 +19,84 @@ class ItemsTable extends StatefulWidget {
 class _ItemsTableState extends State<ItemsTable> {
   @override
   Widget build(BuildContext context) {
-    getItems();
+    // getItems();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
-        child: DataTable(
-          sortColumnIndex: 0,
-          sortAscending: true,
-          columns: [
-            DataColumn(
-              label: Text('Item Name'),
-            ),
-            DataColumn(
-              label: Text('Quantity'),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text('Buying Price'),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text('Selling Price'),
-              numeric: true,
-            ),
-          ],
-          rows: [
-            DataRow(
-              cells: [
-                DataCell(Text('Burger')),
-                DataCell(Text('16')),
-                DataCell(Text('45')),
-                DataCell(Text('50')),
-              ],
-            ),
-            DataRow(
-              cells: [
-                DataCell(Text('Pizza')),
-                DataCell(Text('20')),
-                DataCell(Text('69')),
-                DataCell(Text('75')),
-              ],
-            ),
-            DataRow(
-              cells: [
-                DataCell(Text('Chocolate')),
-                DataCell(Text('604')),
-                DataCell(Text('9.08')),
-                DataCell(Text('10')),
-              ],
-            ),
-            DataRow(
-              cells: [
-                DataCell(Text('Caps')),
-                DataCell(Text('41')),
-                DataCell(Text('150')),
-                DataCell(Text('200')),
-              ],
-            ),
-            DataRow(
-              cells: [
-                DataCell(Text('Sandwich')),
-                DataCell(Text('0')),
-                DataCell(Text('9')),
-                DataCell(Text('10')),
-              ],
-            ),
-          ],
+        child: Container(
+          height: MediaQuery.of(context).size.height * 0.9,
+          child: DataTable(
+            showBottomBorder: true,
+            sortColumnIndex: 1,
+            sortAscending: true,
+            columns: [
+              DataColumn(
+                label: Text('Item Name'),
+              ),
+              DataColumn(
+                label: Text('Quantity'),
+                numeric: true,
+              ),
+              DataColumn(
+                label: Text('Buying Price'),
+                numeric: true,
+              ),
+              DataColumn(
+                label: Text('Selling Price'),
+                numeric: true,
+              ),
+            ],
+            rows: [
+              DataRow(
+                cells: [
+                  DataCell(Text('Burger')),
+                  DataCell(Text('16')),
+                  DataCell(Text('45')),
+                  DataCell(Text('50')),
+                ],
+              ),
+              DataRow(
+                cells: [
+                  DataCell(Text('Pizza')),
+                  DataCell(Text('20')),
+                  DataCell(Text('69')),
+                  DataCell(Text('75')),
+                ],
+              ),
+              DataRow(
+                cells: [
+                  DataCell(Text('Chocolate')),
+                  DataCell(Text('604')),
+                  DataCell(Text('9.08')),
+                  DataCell(Text('10')),
+                ],
+              ),
+              DataRow(
+                cells: [
+                  DataCell(Text('Caps')),
+                  DataCell(Text('41')),
+                  DataCell(Text('150')),
+                  DataCell(Text('200')),
+                ],
+              ),
+              DataRow(
+                cells: [
+                  DataCell(Text('Sandwich')),
+                  DataCell(Text('0')),
+                  DataCell(Text('9')),
+                  DataCell(Text('10')),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       Positioned(
-        bottom: 12,
-        right: 12,
+        bottom: 0,
+        right: 24,
         child: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
-            print('Floating button');
             _openPopup(context);
           },
         ),
