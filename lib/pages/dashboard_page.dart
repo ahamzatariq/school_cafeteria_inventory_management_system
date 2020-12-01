@@ -16,6 +16,8 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SliderMenuContainer(
+        drawerIconColor: Theme.of(context).primaryColorDark,
+        drawerIconSize: 32,
         sliderMenu: LayoutBuilder(
           builder: (context, constraints) => Container(
             color: Theme.of(context).primaryColorLight,
@@ -122,8 +124,10 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ),
         sliderMain: LayoutBuilder(
-            builder: (context, constraints) =>
-                listDetail(context, selectedItem, constraints)),
+          builder: (context, constraints) {
+            return listDetail(context, selectedItem, constraints);
+          },
+        ),
       ),
     );
   }
@@ -147,11 +151,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget listDetail(
       BuildContext context, int listItemTitle, BoxConstraints constraints) {
     return ListView(children: [
-      if (listItemTitle == 0)
-        LayoutBuilder(
-          builder: (context, constraints) =>
-              ItemsTable(constraints: constraints),
-        ),
+      if (listItemTitle == 0) ItemsTable(constraints: constraints),
       if (listItemTitle == 1) Container(),
       if (listItemTitle == 2) Container(),
       if (listItemTitle == 3) Container(),

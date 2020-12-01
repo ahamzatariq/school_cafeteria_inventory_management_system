@@ -24,11 +24,17 @@ class _ItemsTableState extends State<ItemsTable> {
       Align(
         alignment: Alignment.center,
         child: Container(
-          height: MediaQuery.of(context).size.height * 0.9,
+          height: widget.constraints.maxHeight,
+          width: widget.constraints.maxWidth,
           child: DataTable(
             showBottomBorder: true,
             sortColumnIndex: 1,
             sortAscending: true,
+            headingTextStyle: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
             columns: [
               DataColumn(
                 label: Text('Item Name'),
@@ -92,8 +98,8 @@ class _ItemsTableState extends State<ItemsTable> {
         ),
       ),
       Positioned(
-        bottom: 0,
-        right: 24,
+        bottom: 16,
+        right: 16,
         child: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
