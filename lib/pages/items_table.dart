@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:http/http.dart' as http;
+import 'package:rflutter_alert/rflutter_alert.dart';
+
 import 'dart:convert';
 
 class ItemsTable extends StatefulWidget {
@@ -91,75 +92,8 @@ class _ItemsTableState extends State<ItemsTable> {
         child: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
-            showMaterialModalBottomSheet(
-              context: context,
-              elevation: 6,
-              builder: (context) => SingleChildScrollView(
-                controller: ModalScrollController.of(context),
-                child: Container(
-                  height: 500,
-                  padding: EdgeInsets.symmetric(vertical: 22, horizontal: 200),
-                  child: Form(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        TextFormField(
-                          keyboardType: TextInputType.text,
-                          style: Theme.of(context).textTheme.headline3,
-                          decoration: InputDecoration(labelText: 'Item Name'),
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.number,
-                          style: Theme.of(context).textTheme.headline3,
-                          decoration:
-                              InputDecoration(labelText: 'Item Quantity'),
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.number,
-                          style: Theme.of(context).textTheme.headline3,
-                          decoration:
-                              InputDecoration(labelText: 'Item Buying Price'),
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.number,
-                          style: Theme.of(context).textTheme.headline3,
-                          decoration:
-                              InputDecoration(labelText: 'Item Selling Price'),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Material(
-                            elevation: 6,
-                            color: Theme.of(context).primaryColorLight,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                            ),
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              width: 200,
-                              child: Row(
-                                children: [
-                                  Icon(Icons.add),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    'Add Item',
-                                    style:
-                                        Theme.of(context).textTheme.headline1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            );
+            print('Floating button');
+            _openPopup(context);
           },
         ),
       )
@@ -167,7 +101,9 @@ class _ItemsTableState extends State<ItemsTable> {
   }
 
   getItems() async {
-    final items = await http.get('http://127.0.0.1:8000/api/items');
+    var headers = {'Accept': 'application/json'};
+    final items =
+        await http.get('http://127.0.0.1:8000/api/items/', headers: headers);
 
     if (items.statusCode == 200) {
       var v = json.decode(items.body);
@@ -176,5 +112,55 @@ class _ItemsTableState extends State<ItemsTable> {
       });
     }
     // return items;
+  }
+
+  _openPopup(BuildContext context) {
+    Alert(
+      context: context,
+      title: 'Add Item',
+      content: Column(
+        children: [
+          TextField(
+            style: Theme.of(context).textTheme.headline3,
+            decoration: InputDecoration(
+              icon: Icon(Icons.widgets_outlined),
+              labelText: 'Item Name',
+            ),
+          ),
+          TextField(
+            style: Theme.of(context).textTheme.headline3,
+            decoration: InputDecoration(
+              icon: Icon(Icons.add_shopping_cart_rounded),
+              labelText: 'Quantity',
+            ),
+          ),
+          TextField(
+            style: Theme.of(context).textTheme.headline3,
+            decoration: InputDecoration(
+              icon: Icon(Icons.arrow_back_rounded),
+              labelText: 'Buying Price',
+            ),
+          ),
+          TextField(
+            style: Theme.of(context).textTheme.headline3,
+            decoration: InputDecoration(
+              icon: Icon(Icons.arrow_forward_rounded),
+              labelText: 'Selling Price',
+            ),
+          ),
+        ],
+      ),
+      buttons: [
+        DialogButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'Add Item',
+            style: Theme.of(context).textTheme.headline4,
+          ),
+        )
+      ],
+    ).show();
   }
 }
