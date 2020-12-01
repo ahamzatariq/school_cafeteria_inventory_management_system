@@ -14,6 +14,9 @@ class Login extends StatelessWidget {
         onLogin: _loginUser,
         onSignup: _signUpUser,
         onRecoverPassword: _recoverPassword,
+        emailValidator: (value) {
+          return null;
+        },
         onSubmitAnimationCompleted: () {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
@@ -26,15 +29,11 @@ class Login extends StatelessWidget {
   }
 
   Future<String> _loginUser(LoginData p1) {
-    var response = http.post('http://127.0.0.1:8000/auth/', body: p1);
-    print(response);
+    // var response = http.post('http://127.0.0.1:8000/auth/', body: p1);
+    // print(response);
   }
 
-  Future<String> _signUpUser(LoginData p1) {
+  Future<String> _signUpUser(LoginData p1) {}
 
-  }
-
-
-  Future<String> _recoverPassword(String p1) {
-  }
+  Future<String> _recoverPassword(String p1) {}
 }
