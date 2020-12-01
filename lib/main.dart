@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/pages/dashboard_page.dart';
 import 'package:flutter_web/pages/items_table.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_web/style.dart';
 
 import 'widgets/login.dart';
 
@@ -18,29 +17,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         textTheme: TextTheme(
-
-          // MenuListItems
-          headline1: GoogleFonts.openSans(
-            fontSize: 28,
-          ),
-
-          // ProfileText
-          headline2: GoogleFonts.roboto(
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
-
-          //TextFields
-          headline3: GoogleFonts.mukta(
-            fontSize: 18,
-            fontWeight: FontWeight.w300,
-          ),
-
-          // SelectedMenuItem
-          headline4: GoogleFonts.openSans(
-            fontSize: 28,
-            color: Colors.white,
-          ),
+          headline1: Style().headline1,
+          headline2: Style().headline2,
+          headline3: Style().headline3,
+          headline4: Style().headline4,
         ),
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
