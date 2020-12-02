@@ -3,6 +3,7 @@ import 'package:flutter_web/menu_pages/items_page.dart';
 
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_web/menu_pages/purchase_page.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = ThemeProvider.controllerOf(context);
     return Scaffold(
       body: SliderMenuContainer(
         drawerIconColor: Theme.of(context).primaryColorDark,
@@ -130,7 +132,12 @@ class _DashboardPageState extends State<DashboardPage> {
                 Positioned(
                   bottom: 12,
                   right: 12,
-                  child: listItem(context, 'Theme', constraints, false),
+                  child: InkWell(
+                    onTap: () {
+                      controller.nextTheme();
+                    },
+                    child: listItem(context, 'Theme', constraints, false),
+                  ),
                 )
               ],
             );
