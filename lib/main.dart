@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web/menu_pages/items_page.dart';
 import 'package:flutter_web/style.dart';
 
+import 'menu_pages/purchase_page.dart';
 import 'widgets/login.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       routes: {
         ItemsPage.routeName: (context) => ItemsPage(),
+        PurchasePage.routeName: (context) => PurchasePage(),
       },
     );
   }
