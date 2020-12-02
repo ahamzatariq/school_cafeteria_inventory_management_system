@@ -150,6 +150,14 @@ class _DashboardPageState extends State<DashboardPage> {
           },
         ),
       ),
+      floatingActionButton: selectedItem == 0
+          ? FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                ItemsPage().createState().openAddItemPopup(context);
+              },
+            )
+          : null,
     );
   }
 
@@ -225,6 +233,19 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   InkWell buildColorBlock(ThemeController controller, String color) {
+    Color myColor = color.contains('red')
+        ? Colors.red
+        : color.contains('blue')
+            ? Colors.blue
+            : color.contains('teal')
+                ? Colors.teal
+                : color.contains('green')
+                    ? Colors.green
+                    : color.contains('purple')
+                        ? Colors.purple
+                        : color.contains('orange')
+                            ? Colors.deepOrange
+                            : null;
     return InkWell(
       onTap: () {
         controller.setTheme(color);
@@ -232,19 +253,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: color.contains('red')
-              ? Colors.red
-              : color.contains('blue')
-                  ? Colors.blue
-                  : color.contains('teal')
-                      ? Colors.teal
-                      : color.contains('green')
-                          ? Colors.green
-                          : color.contains('purple')
-                              ? Colors.purple
-                              : color.contains('orange')
-                                  ? Colors.deepOrange
-                                  : null,
+          color: myColor,
         ),
         width: 100,
         height: 100,

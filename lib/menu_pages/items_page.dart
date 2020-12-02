@@ -25,35 +25,31 @@ class _ItemsPageState extends State<ItemsPage> {
       Align(
         alignment: Alignment.center,
         child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).primaryColorLight.withAlpha(70),
-            borderRadius: BorderRadius.circular(12),
-          ),
           height: widget.constraints.maxHeight,
-          width: (widget.constraints.maxWidth - 2 * widget.menuWidth),
+          width: widget.constraints.maxWidth / 2.5,
           child: DataTable(
             showBottomBorder: true,
             sortColumnIndex: 1,
             sortAscending: true,
-            headingTextStyle: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            dataTextStyle: Theme.of(context).textTheme.headline3,
+            headingTextStyle: Theme.of(context)
+                .textTheme
+                .headline3
+                .copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
             columns: [
               DataColumn(
-                label: Text('Item Name'),
+                label: Text('ITEM NAME'),
               ),
               DataColumn(
-                label: Text('Quantity'),
+                label: Text('QUANTITY'),
                 numeric: true,
               ),
               DataColumn(
-                label: Text('Buying Price'),
+                label: Text('BUYING PRICE'),
                 numeric: true,
               ),
               DataColumn(
-                label: Text('Selling Price'),
+                label: Text('SELLING PRICE'),
                 numeric: true,
               ),
             ],
@@ -102,16 +98,16 @@ class _ItemsPageState extends State<ItemsPage> {
           ),
         ),
       ),
-      Positioned(
-        bottom: 16,
-        right: 16,
-        child: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {
-            _openPopup(context);
-          },
-        ),
-      )
+      // Positioned(
+      //   bottom: 16,
+      //   right: 16,
+      //   child: FloatingActionButton(
+      //     child: Icon(Icons.add),
+      //     onPressed: () {
+      //       openAddItemPopup(context);
+      //     },
+      //   ),
+      // ),
     ]);
   }
 
@@ -129,7 +125,7 @@ class _ItemsPageState extends State<ItemsPage> {
     // return items;
   }
 
-  _openPopup(BuildContext context) {
+  openAddItemPopup(BuildContext context) {
     Alert(
       context: context,
       title: 'Add Item',
