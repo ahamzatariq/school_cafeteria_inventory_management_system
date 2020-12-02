@@ -47,6 +47,22 @@ class MyApp extends StatelessWidget {
           ),
           description: '',
         ),
+        AppTheme(
+          id: 'purple',
+          data: ThemeData(
+            primarySwatch: Colors.purple,
+            textTheme: Style().textTheme,
+          ),
+          description: '',
+        ),
+        AppTheme(
+          id: 'orange',
+          data: ThemeData(
+            primarySwatch: Colors.deepOrange,
+            textTheme: Style().textTheme,
+          ),
+          description: '',
+        ),
       ],
       child: ThemeConsumer(
         child: Builder(

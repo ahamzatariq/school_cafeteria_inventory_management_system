@@ -4,6 +4,7 @@ import 'package:flutter_web/menu_pages/items_page.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_web/menu_pages/purchase_page.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -18,7 +19,6 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
-    var controller = ThemeProvider.controllerOf(context);
     return Scaffold(
       body: SliderMenuContainer(
         drawerIconColor: Theme.of(context).primaryColorDark,
@@ -134,7 +134,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   right: 12,
                   child: InkWell(
                     onTap: () {
-                      controller.nextTheme();
+                      _openThemePopup(context);
                     },
                     child: listItem(context, 'Theme', constraints, false),
                   ),
@@ -182,5 +182,117 @@ class _DashboardPageState extends State<DashboardPage> {
       if (listItemTitle == 3) Container(),
       Container()
     ]);
+  }
+
+  _openThemePopup(BuildContext context) {
+    var controller = ThemeProvider.controllerOf(context);
+    Alert(
+      context: context,
+      title: 'Select Color',
+      content: Center(
+        child: Container(
+          height: 330,
+          width: 220,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      controller.setTheme('red');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.red,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      controller.setTheme('blue');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.blue,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      controller.setTheme('teal');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.teal,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      controller.setTheme('green');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.green,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      controller.setTheme('purple');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.purple,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      controller.setTheme('orange');
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.deepOrange,
+                      ),
+                      width: 100,
+                      height: 100,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    ).show();
   }
 }
