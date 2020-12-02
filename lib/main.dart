@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/pages/items_table.dart';
+import 'package:flutter_web/menu_pages/items_page.dart';
 import 'package:flutter_web/style.dart';
 
 import 'widgets/login.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
       routes: {
-        ItemsTable.routeName: (context) => ItemsTable(),
+        ItemsPage.routeName: (context) => ItemsPage(),
       },
     );
   }

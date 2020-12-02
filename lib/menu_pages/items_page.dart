@@ -1,22 +1,23 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'dart:convert';
 
-class ItemsTable extends StatefulWidget {
+class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
 
   final BoxConstraints constraints;
+  final double menuWidth;
 
-  ItemsTable({this.constraints});
+  ItemsPage({this.constraints, this.menuWidth});
 
   @override
-  _ItemsTableState createState() => _ItemsTableState();
+  _ItemsPageState createState() => _ItemsPageState();
 }
 
-class _ItemsTableState extends State<ItemsTable> {
+class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     // getItems();
@@ -24,8 +25,12 @@ class _ItemsTableState extends State<ItemsTable> {
       Align(
         alignment: Alignment.center,
         child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColorLight.withAlpha(70),
+            borderRadius: BorderRadius.circular(12),
+          ),
           height: widget.constraints.maxHeight,
-          width: widget.constraints.maxWidth,
+          width: (widget.constraints.maxWidth - 2 * widget.menuWidth),
           child: DataTable(
             showBottomBorder: true,
             sortColumnIndex: 1,
