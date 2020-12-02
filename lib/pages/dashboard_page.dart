@@ -199,94 +199,22 @@ class _DashboardPageState extends State<DashboardPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      controller.setTheme('red');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.red,
-                      ),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      controller.setTheme('blue');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.blue,
-                      ),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
+                  buildColorBlock(controller, 'red'),
+                  buildColorBlock(controller, 'blue'),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      controller.setTheme('teal');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.teal,
-                      ),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      controller.setTheme('green');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.green,
-                      ),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
+                  buildColorBlock(controller, 'teal'),
+                  buildColorBlock(controller, 'green'),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      controller.setTheme('purple');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.purple,
-                      ),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      controller.setTheme('orange');
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.deepOrange,
-                      ),
-                      width: 100,
-                      height: 100,
-                    ),
-                  ),
+                  buildColorBlock(controller, 'purple'),
+                  buildColorBlock(controller, 'orange'),
                 ],
               ),
             ],
@@ -294,5 +222,33 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
     ).show();
+  }
+
+  InkWell buildColorBlock(ThemeController controller, String color) {
+    return InkWell(
+      onTap: () {
+        controller.setTheme(color);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: color.contains('red')
+              ? Colors.red
+              : color.contains('blue')
+                  ? Colors.blue
+                  : color.contains('teal')
+                      ? Colors.teal
+                      : color.contains('green')
+                          ? Colors.green
+                          : color.contains('purple')
+                              ? Colors.purple
+                              : color.contains('orange')
+                                  ? Colors.deepOrange
+                                  : null,
+        ),
+        width: 100,
+        height: 100,
+      ),
+    );
   }
 }

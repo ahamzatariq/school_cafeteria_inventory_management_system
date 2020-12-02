@@ -15,54 +15,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ThemeProvider(
       themes: [
-        AppTheme(
-          id: 'red',
-          data: ThemeData(
-            primarySwatch: Colors.red,
-            textTheme: Style().textTheme,
-          ),
-          description: '',
-        ),
-        AppTheme(
-          id: 'blue',
-          data: ThemeData(
-            primarySwatch: Colors.blue,
-            textTheme: Style().textTheme,
-          ),
-          description: '',
-        ),
-        AppTheme(
-          id: 'teal',
-          data: ThemeData(
-            primarySwatch: Colors.teal,
-            textTheme: Style().textTheme,
-          ),
-          description: '',
-        ),
-        AppTheme(
-          id: 'green',
-          data: ThemeData(
-            primarySwatch: Colors.green,
-            textTheme: Style().textTheme,
-          ),
-          description: '',
-        ),
-        AppTheme(
-          id: 'purple',
-          data: ThemeData(
-            primarySwatch: Colors.purple,
-            textTheme: Style().textTheme,
-          ),
-          description: '',
-        ),
-        AppTheme(
-          id: 'orange',
-          data: ThemeData(
-            primarySwatch: Colors.deepOrange,
-            textTheme: Style().textTheme,
-          ),
-          description: '',
-        ),
+        buildAppTheme('red'),
+        buildAppTheme('blue'),
+        buildAppTheme('teal'),
+        buildAppTheme('green'),
+        buildAppTheme('purple'),
+        buildAppTheme('orange'),
       ],
       child: ThemeConsumer(
         child: Builder(
@@ -77,6 +35,29 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  AppTheme buildAppTheme(String colorId) {
+    return AppTheme(
+      id: colorId,
+      data: ThemeData(
+        primarySwatch: colorId.contains('red')
+            ? Colors.red
+            : colorId.contains('blue')
+                ? Colors.blue
+                : colorId.contains('teal')
+                    ? Colors.teal
+                    : colorId.contains('green')
+                        ? Colors.green
+                        : colorId.contains('purple')
+                            ? Colors.purple
+                            : colorId.contains('orange')
+                                ? Colors.deepOrange
+                                : null,
+        textTheme: Style().textTheme,
+      ),
+      description: '',
     );
   }
 }
