@@ -22,4 +22,20 @@ class Style {
     fontSize: 28,
     color: Colors.white,
   );
+
+  TextTheme textTheme = TextTheme(
+    headline1: GoogleFonts.openSans(fontSize: 28),
+    headline2: GoogleFonts.roboto(
+      fontSize: 20,
+      fontWeight: FontWeight.w500,
+    ),
+    headline3: GoogleFonts.mukta(
+      fontSize: 18,
+      fontWeight: FontWeight.w300,
+    ),
+    headline4: GoogleFonts.openSans(
+      fontSize: 28,
+      color: Colors.white,
+    ),
+  );
 }

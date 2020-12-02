@@ -24,108 +24,115 @@ class _DashboardPageState extends State<DashboardPage> {
         sliderMenu: LayoutBuilder(
           builder: (context, constraints) {
             menuWidth = constraints.maxWidth;
-            return Container(
-              color: Theme.of(context).primaryColorLight,
-              padding: EdgeInsets.symmetric(
-                vertical: 8,
-                horizontal: 16,
-              ),
-              child: LayoutBuilder(
-                builder: (context, constraints) => ListView(
-                  children: [
-                    Row(
-                      children: [
-                        CircleAvatar(
-                          child: Icon(
-                            Icons.face,
-                            size: constraints.maxWidth / 3.0,
+            return Stack(
+              children: [
+                Container(
+                  color: Theme.of(context).primaryColorLight,
+                  padding: EdgeInsets.symmetric(
+                    vertical: 8,
+                    horizontal: 16,
+                  ),
+                  child: ListView(
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            child: Icon(
+                              Icons.face,
+                              size: constraints.maxWidth / 3.0,
+                            ),
+                            maxRadius: constraints.maxWidth / 5.0,
                           ),
-                          maxRadius: constraints.maxWidth / 5.0,
-                        ),
-                        SizedBox(width: 7),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                'Name',
-                                style: Theme.of(context).textTheme.headline2,
-                              ),
-                              Text(
-                                'Role',
-                                style: Theme.of(context).textTheme.headline2,
-                              ),
-                            ],
+                          SizedBox(width: 7),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Name',
+                                  style: Theme.of(context).textTheme.headline2,
+                                ),
+                                Text(
+                                  'Role',
+                                  style: Theme.of(context).textTheme.headline2,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 16,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedItem = 0;
-                          selectedItemList[0] = true;
-                          selectedItemList[1] = false;
-                          selectedItemList[2] = false;
-                          selectedItemList[3] = false;
-                        });
-                      },
-                      child: listItem(
-                          context, 'Items', constraints, selectedItemList[0]),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedItem = 1;
-                          selectedItemList[0] = false;
-                          selectedItemList[1] = true;
-                          selectedItemList[2] = false;
-                          selectedItemList[3] = false;
-                        });
-                      },
-                      child: listItem(context, 'Purchase', constraints,
-                          selectedItemList[1]),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedItem = 2;
-                          selectedItemList[0] = false;
-                          selectedItemList[1] = false;
-                          selectedItemList[2] = true;
-                          selectedItemList[3] = false;
-                        });
-                      },
-                      child: listItem(
-                          context, 'Sales', constraints, selectedItemList[2]),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          selectedItem = 3;
-                          selectedItemList[0] = false;
-                          selectedItemList[1] = false;
-                          selectedItemList[2] = false;
-                          selectedItemList[3] = true;
-                        });
-                      },
-                      child: listItem(
-                          context, 'Report', constraints, selectedItemList[3]),
-                    ),
-                  ],
+                        ],
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedItem = 0;
+                            selectedItemList[0] = true;
+                            selectedItemList[1] = false;
+                            selectedItemList[2] = false;
+                            selectedItemList[3] = false;
+                          });
+                        },
+                        child: listItem(
+                            context, 'Items', constraints, selectedItemList[0]),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedItem = 1;
+                            selectedItemList[0] = false;
+                            selectedItemList[1] = true;
+                            selectedItemList[2] = false;
+                            selectedItemList[3] = false;
+                          });
+                        },
+                        child: listItem(context, 'Purchase', constraints,
+                            selectedItemList[1]),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedItem = 2;
+                            selectedItemList[0] = false;
+                            selectedItemList[1] = false;
+                            selectedItemList[2] = true;
+                            selectedItemList[3] = false;
+                          });
+                        },
+                        child: listItem(
+                            context, 'Sales', constraints, selectedItemList[2]),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            selectedItem = 3;
+                            selectedItemList[0] = false;
+                            selectedItemList[1] = false;
+                            selectedItemList[2] = false;
+                            selectedItemList[3] = true;
+                          });
+                        },
+                        child: listItem(context, 'Report', constraints,
+                            selectedItemList[3]),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+                Positioned(
+                  bottom: 12,
+                  right: 12,
+                  child: listItem(context, 'Theme', constraints, false),
+                )
+              ],
             );
           },
         ),
