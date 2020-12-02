@@ -10,9 +10,9 @@ class PurchasePage extends StatelessWidget {
       child: Form(
         child: Row(
           children: [
-            Expanded(flex: 2, child: Spacer()),
+            Spacer(),
+            Spacer(),
             Expanded(
-              flex: 1,
               child: Card(
                 elevation: 6,
                 color: Theme.of(context).primaryColorLight.withAlpha(70),
@@ -73,9 +73,12 @@ class PurchasePage extends StatelessWidget {
                       SizedBox(height: 12),
                       RaisedButton(
                         color: Theme.of(context).primaryColorDark,
-                        child: Text(
-                          'Purchase',
-                          style: Theme.of(context).textTheme.headline4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Purchase',
+                            style: Theme.of(context).textTheme.headline4,
+                          ),
                         ),
                         onPressed: () {},
                       ),
@@ -84,7 +87,8 @@ class PurchasePage extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(flex: 2, child: Spacer()),
+            Spacer(),
+            Spacer(),
           ],
         ),
       ),
