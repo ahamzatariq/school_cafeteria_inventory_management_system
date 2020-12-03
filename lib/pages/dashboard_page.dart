@@ -3,6 +3,7 @@ import 'package:flutter_web/menu_pages/items_page.dart';
 
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter_web/menu_pages/purchase_page.dart';
+import 'package:flutter_web/menu_pages/sales_page.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -186,7 +187,7 @@ class _DashboardPageState extends State<DashboardPage> {
           menuWidth: menuWidth,
         ),
       if (listItemTitle == 1) PurchasePage(),
-      if (listItemTitle == 2) Container(),
+      if (listItemTitle == 2) SalesPage(),
       if (listItemTitle == 3) Container(),
       Container()
     ]);

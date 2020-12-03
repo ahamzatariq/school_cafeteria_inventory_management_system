@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/menu_pages/items_page.dart';
+import 'package:flutter_web/menu_pages/sales_page.dart';
 import 'package:flutter_web/style.dart';
 import 'package:theme_provider/theme_provider.dart';
 
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
             routes: {
               ItemsPage.routeName: (context) => ItemsPage(),
               PurchasePage.routeName: (context) => PurchasePage(),
+              SalesPage.routeName: (context) => SalesPage(),
             },
           ),
         ),
