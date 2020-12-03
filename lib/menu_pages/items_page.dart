@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_web/item.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -8,6 +9,7 @@ import 'dart:convert';
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
 
+  List<Item> getItems = [];
   final BoxConstraints constraints;
   final double menuWidth;
 
@@ -20,7 +22,7 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
-    // getItems();
+    getItems();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -118,15 +120,14 @@ class _ItemsPageState extends State<ItemsPage> {
   }
 
   getItems() async {
-    var headers = {'Accept': 'application/json'};
-    final items =
-        await http.get('http://127.0.0.1:8000/api/items/', headers: headers);
+    final items = await http.get(
+      'http://localhost:8000/api/items/',
+    );
 
     if (items.statusCode == 200) {
-      var v = json.decode(items.body);
-      setState(() {
-        print(v);
-      });
+      List<dynamic> v = json.decode(items.body);
+    } else {
+      print('Status code: ${items.statusCode}');
     }
     // return items;
   }
