@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PurchasePage extends StatelessWidget {
-  static const routeName = '/purchase-page';
+class SalesPage extends StatelessWidget {
+  static const routeName = '/sales-page';
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class PurchasePage extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'Purchase Items',
+                        'Sales',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
@@ -38,10 +38,10 @@ class PurchasePage extends StatelessWidget {
                         style: Theme.of(context).textTheme.headline3,
                         decoration: InputDecoration(
                           icon: Icon(
-                            Icons.arrow_back_rounded,
+                            Icons.arrow_forward_rounded,
                             color: Theme.of(context).primaryColorDark,
                           ),
-                          labelText: 'Purchasing Amount',
+                          labelText: 'Selling Price',
                         ),
                       ),
                       TextFormField(
@@ -51,7 +51,7 @@ class PurchasePage extends StatelessWidget {
                             Icons.add_shopping_cart_rounded,
                             color: Theme.of(context).primaryColorDark,
                           ),
-                          labelText: 'Quantity Purchased',
+                          labelText: 'Quantity Sold',
                         ),
                       ),
                       SizedBox(height: 16),
@@ -61,7 +61,7 @@ class PurchasePage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(left: 40.0),
                             child: Text(
-                              'Per piece cost: ',
+                              'Total sold amount: ',
                               style: Theme.of(context).textTheme.headline3,
                             ),
                           ),
@@ -71,15 +71,22 @@ class PurchasePage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      TextFormField(
-                        style: Theme.of(context).textTheme.headline3,
-                        decoration: InputDecoration(
-                          icon: Icon(
-                            Icons.arrow_forward_rounded,
-                            color: Theme.of(context).primaryColorDark,
+                      SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 40.0),
+                            child: Text(
+                              'Quantity left behind ',
+                              style: Theme.of(context).textTheme.headline3,
+                            ),
                           ),
-                          labelText: 'Selling Price',
-                        ),
+                          Text(
+                            '15',
+                            style: Theme.of(context).textTheme.headline3,
+                          ),
+                        ],
                       ),
                       SizedBox(height: 12),
                       RaisedButton(
