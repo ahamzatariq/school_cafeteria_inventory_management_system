@@ -60,13 +60,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 0;
-                        selectedItemList[0] = true;
-                        selectedItemList[1] = false;
-                        selectedItemList[2] = false;
-                        selectedItemList[3] = false;
-                      });
+                      onTapListItem(0);
                     },
                     child: listItem(
                         context, 'Items', constraints, selectedItemList[0]),
@@ -76,13 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 1;
-                        selectedItemList[0] = false;
-                        selectedItemList[1] = true;
-                        selectedItemList[2] = false;
-                        selectedItemList[3] = false;
-                      });
+                      onTapListItem(1);
                     },
                     child: listItem(
                         context, 'Purchase', constraints, selectedItemList[1]),
@@ -92,13 +80,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 2;
-                        selectedItemList[0] = false;
-                        selectedItemList[1] = false;
-                        selectedItemList[2] = true;
-                        selectedItemList[3] = false;
-                      });
+                      onTapListItem(2);
                     },
                     child: listItem(
                         context, 'Sales', constraints, selectedItemList[2]),
@@ -108,13 +90,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 3;
-                        selectedItemList[0] = false;
-                        selectedItemList[1] = false;
-                        selectedItemList[2] = false;
-                        selectedItemList[3] = true;
-                      });
+                      onTapListItem(3);
                     },
                     child: listItem(
                         context, 'Report', constraints, selectedItemList[3]),
@@ -129,6 +105,16 @@ class _DashboardPageState extends State<DashboardPage> {
                 listDetail(context, selectedItem, constraints)),
       ),
     );
+  }
+
+  void onTapListItem(int itemNumber) {
+    setState(() {
+      selectedItem = itemNumber;
+      for (int i = 0; i < selectedItemList.length; i++) {
+        selectedItemList[i] = false;
+      }
+      selectedItemList[itemNumber] = true;
+    });
   }
 
   Widget listItem(
