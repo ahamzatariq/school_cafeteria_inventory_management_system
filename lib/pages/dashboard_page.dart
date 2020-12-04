@@ -8,6 +8,10 @@ import 'package:theme_provider/theme_provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class DashboardPage extends StatefulWidget {
+  final String token;
+
+  const DashboardPage({Key key, this.token}) : super(key: key);
+
   @override
   _DashboardPageState createState() => _DashboardPageState();
 }
@@ -20,6 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.token);
     return Scaffold(
       body: SliderMenuContainer(
         drawerIconColor: Theme.of(context).primaryColorDark,
