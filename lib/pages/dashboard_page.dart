@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web/pages/items_table.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+
+enum ListItems { items, purchase, sales, report }
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  int selectedItem = 0;
+  int selectedItem = ListItems.items.index;
   List<bool> selectedItemList = [true, false, false, false];
 
   @override
@@ -60,7 +60,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      onTapListItem(0);
+                      onTapListItem(ListItems.items.index);
                     },
                     child: listItem(
                         context, 'Items', constraints, selectedItemList[0]),
@@ -70,7 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      onTapListItem(1);
+                      onTapListItem(ListItems.purchase.index);
                     },
                     child: listItem(
                         context, 'Purchase', constraints, selectedItemList[1]),
@@ -80,7 +80,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      onTapListItem(2);
+                      onTapListItem(ListItems.sales.index);
                     },
                     child: listItem(
                         context, 'Sales', constraints, selectedItemList[2]),
@@ -90,7 +90,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      onTapListItem(3);
+                      onTapListItem(ListItems.report.index);
                     },
                     child: listItem(
                         context, 'Report', constraints, selectedItemList[3]),
