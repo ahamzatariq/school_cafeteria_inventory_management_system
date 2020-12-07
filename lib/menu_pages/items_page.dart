@@ -28,10 +28,16 @@ class _ItemsPageState extends State<ItemsPage> {
           height: widget.constraints.maxHeight,
           width: widget.constraints.maxWidth / 2.5,
           child: DataTable(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+            ),
             showBottomBorder: true,
             sortColumnIndex: 1,
             sortAscending: true,
             dataTextStyle: Theme.of(context).textTheme.headline3,
+            headingRowColor: MaterialStateProperty.resolveWith<Color>(
+              (states) => Theme.of(context).primaryColorLight,
+            ),
             headingTextStyle: Theme.of(context)
                 .textTheme
                 .headline3
@@ -134,28 +140,40 @@ class _ItemsPageState extends State<ItemsPage> {
           TextField(
             style: Theme.of(context).textTheme.headline3,
             decoration: InputDecoration(
-              icon: Icon(Icons.widgets_outlined),
+              icon: Icon(
+                Icons.widgets_outlined,
+                color: Theme.of(context).primaryColorDark,
+              ),
               labelText: 'Item Name',
             ),
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
             decoration: InputDecoration(
-              icon: Icon(Icons.add_shopping_cart_rounded),
+              icon: Icon(
+                Icons.add_shopping_cart_rounded,
+                color: Theme.of(context).primaryColorDark,
+              ),
               labelText: 'Quantity',
             ),
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
             decoration: InputDecoration(
-              icon: Icon(Icons.arrow_back_rounded),
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                color: Theme.of(context).primaryColorDark,
+              ),
               labelText: 'Buying Price',
             ),
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
             decoration: InputDecoration(
-              icon: Icon(Icons.arrow_forward_rounded),
+              icon: Icon(
+                Icons.arrow_forward_rounded,
+                color: Theme.of(context).primaryColorDark,
+              ),
               labelText: 'Selling Price',
             ),
           ),

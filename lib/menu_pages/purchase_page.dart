@@ -28,21 +28,30 @@ class PurchasePage extends StatelessWidget {
                       TextFormField(
                         style: Theme.of(context).textTheme.headline3,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.widgets_outlined),
+                          icon: Icon(
+                            Icons.widgets_outlined,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
                           labelText: 'Item Name',
                         ),
                       ),
                       TextFormField(
                         style: Theme.of(context).textTheme.headline3,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.arrow_back_rounded),
+                          icon: Icon(
+                            Icons.arrow_back_rounded,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
                           labelText: 'Purchasing Amount',
                         ),
                       ),
                       TextFormField(
                         style: Theme.of(context).textTheme.headline3,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.add_shopping_cart_rounded),
+                          icon: Icon(
+                            Icons.add_shopping_cart_rounded,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
                           labelText: 'Quantity Purchased',
                         ),
                       ),
@@ -66,7 +75,10 @@ class PurchasePage extends StatelessWidget {
                       TextFormField(
                         style: Theme.of(context).textTheme.headline3,
                         decoration: InputDecoration(
-                          icon: Icon(Icons.arrow_forward_rounded),
+                          icon: Icon(
+                            Icons.arrow_forward_rounded,
+                            color: Theme.of(context).primaryColorDark,
+                          ),
                           labelText: 'Selling Price',
                         ),
                       ),
