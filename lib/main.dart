@@ -18,19 +18,28 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.teal,
         textTheme: TextTheme(
+
           // MenuListItems
           headline1: GoogleFonts.openSans(
             fontSize: 28,
           ),
+
           // ProfileText
           headline2: GoogleFonts.roboto(
             fontSize: 20,
             fontWeight: FontWeight.w500,
           ),
+
           //TextFields
           headline3: GoogleFonts.mukta(
             fontSize: 18,
             fontWeight: FontWeight.w300,
+          ),
+
+          // SelectedMenuItem
+          headline4: GoogleFonts.openSans(
+            fontSize: 28,
+            color: Colors.white,
           ),
         ),
       ),
@@ -54,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DashboardPage(),
+      body: Login(),
       // Login(),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class ItemsTable extends StatelessWidget {
+class ItemsTable extends StatefulWidget {
   static const routeName = '/items-table';
 
   final BoxConstraints constraints;
@@ -10,9 +11,13 @@ class ItemsTable extends StatelessWidget {
   ItemsTable({this.constraints});
 
   @override
+  _ItemsTableState createState() => _ItemsTableState();
+}
+
+class _ItemsTableState extends State<ItemsTable> {
+  @override
   Widget build(BuildContext context) {
-    http.Response items = getItems();
-    print(items);
+    getItems();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -161,13 +166,15 @@ class ItemsTable extends StatelessWidget {
     ]);
   }
 
-  http.Response getItems() {
-    var items;
-    http.get('http://127.0.0.1:8000/api/items').then(
-      (value) {
-        items = value;
-      },
-    );
-    if (items != null) return items;
+  getItems() async {
+    final items = await http.get('http://127.0.0.1:8000/api/items');
+
+    if (items.statusCode == 200) {
+      var v = json.decode(items.body);
+      setState(() {
+        print(v);
+      });
+    }
+    // return items;
   }
 }

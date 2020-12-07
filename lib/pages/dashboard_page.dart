@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web/pages/items_table.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+
+enum ListItems { items, purchase, sales, report }
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -12,9 +12,8 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  List<String> listItems = ['Items', 'Purchase', 'Sales', 'Report'];
-
-  int selectedItem = 0;
+  int selectedItem = ListItems.items.index;
+  List<bool> selectedItemList = [true, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -61,42 +60,40 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() => selectedItem = 0);
+                      onTapListItem(ListItems.items.index);
                     },
-                    child: listItem(context, 'Items', constraints),
+                    child: listItem(
+                        context, 'Items', constraints, selectedItemList[0]),
                   ),
                   SizedBox(
                     height: 8,
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 1;
-                      });
+                      onTapListItem(ListItems.purchase.index);
                     },
-                    child: listItem(context, 'Purchase', constraints),
+                    child: listItem(
+                        context, 'Purchase', constraints, selectedItemList[1]),
                   ),
                   SizedBox(
                     height: 8,
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 2;
-                      });
+                      onTapListItem(ListItems.sales.index);
                     },
-                    child: listItem(context, 'Sales', constraints),
+                    child: listItem(
+                        context, 'Sales', constraints, selectedItemList[2]),
                   ),
                   SizedBox(
                     height: 8,
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 3;
-                      });
+                      onTapListItem(ListItems.report.index);
                     },
-                    child: listItem(context, 'Report', constraints),
+                    child: listItem(
+                        context, 'Report', constraints, selectedItemList[3]),
                   ),
                 ],
               ),
@@ -110,13 +107,27 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget listItem(BuildContext context, String title, BoxConstraints size) {
+  void onTapListItem(int itemNumber) {
+    setState(() {
+      selectedItem = itemNumber;
+      for (int i = 0; i < selectedItemList.length; i++) {
+        selectedItemList[i] = false;
+      }
+      selectedItemList[itemNumber] = true;
+    });
+  }
+
+  Widget listItem(
+      BuildContext context, String title, BoxConstraints size, bool selected) {
     return Container(
       width: size.maxWidth,
+      color: selected ? Theme.of(context).primaryColorDark : Colors.transparent,
       child: Center(
         child: Text(
           title,
-          style: Theme.of(context).textTheme.headline1,
+          style: selected
+              ? Theme.of(context).textTheme.headline4
+              : Theme.of(context).textTheme.headline1,
         ),
       ),
     );
