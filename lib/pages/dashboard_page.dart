@@ -1,10 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_web/pages/items_table.dart';
 
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+
+enum ListItems { items, purchase, sales, report }
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  int selectedItem = 0;
+  int selectedItem = ListItems.items.index;
   List<bool> selectedItemList = [true, false, false, false];
 
   @override
@@ -60,13 +60,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 0;
-                        selectedItemList[0] = true;
-                        selectedItemList[1] = false;
-                        selectedItemList[2] = false;
-                        selectedItemList[3] = false;
-                      });
+                      onTapListItem(ListItems.items.index);
                     },
                     child: listItem(
                         context, 'Items', constraints, selectedItemList[0]),
@@ -76,13 +70,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 1;
-                        selectedItemList[0] = false;
-                        selectedItemList[1] = true;
-                        selectedItemList[2] = false;
-                        selectedItemList[3] = false;
-                      });
+                      onTapListItem(ListItems.purchase.index);
                     },
                     child: listItem(
                         context, 'Purchase', constraints, selectedItemList[1]),
@@ -92,13 +80,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 2;
-                        selectedItemList[0] = false;
-                        selectedItemList[1] = false;
-                        selectedItemList[2] = true;
-                        selectedItemList[3] = false;
-                      });
+                      onTapListItem(ListItems.sales.index);
                     },
                     child: listItem(
                         context, 'Sales', constraints, selectedItemList[2]),
@@ -108,13 +90,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      setState(() {
-                        selectedItem = 3;
-                        selectedItemList[0] = false;
-                        selectedItemList[1] = false;
-                        selectedItemList[2] = false;
-                        selectedItemList[3] = true;
-                      });
+                      onTapListItem(ListItems.report.index);
                     },
                     child: listItem(
                         context, 'Report', constraints, selectedItemList[3]),
@@ -129,6 +105,16 @@ class _DashboardPageState extends State<DashboardPage> {
                 listDetail(context, selectedItem, constraints)),
       ),
     );
+  }
+
+  void onTapListItem(int itemNumber) {
+    setState(() {
+      selectedItem = itemNumber;
+      for (int i = 0; i < selectedItemList.length; i++) {
+        selectedItemList[i] = false;
+      }
+      selectedItemList[itemNumber] = true;
+    });
   }
 
   Widget listItem(
