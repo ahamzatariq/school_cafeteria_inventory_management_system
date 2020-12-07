@@ -1,52 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/menu_pages/items_page.dart';
 import 'package:flutter_web/style.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 import 'menu_pages/purchase_page.dart';
-import 'widgets/login.dart';
+import 'pages/login_page.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-        textTheme: TextTheme(
-          headline1: Style().headline1,
-          headline2: Style().headline2,
-          headline3: Style().headline3,
-          headline4: Style().headline4,
+    return ThemeProvider(
+      themes: [
+        buildAppTheme('red'),
+        buildAppTheme('blue'),
+        buildAppTheme('teal'),
+        buildAppTheme('green'),
+        buildAppTheme('purple'),
+        buildAppTheme('orange'),
+      ],
+      child: ThemeConsumer(
+        child: Builder(
+          builder: (themeContext) => MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeProvider.themeOf(themeContext).data,
+            home: LoginPage(),
+            routes: {
+              ItemsPage.routeName: (context) => ItemsPage(),
+              PurchasePage.routeName: (context) => PurchasePage(),
+            },
+          ),
         ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-      routes: {
-        ItemsPage.routeName: (context) => ItemsPage(),
-        PurchasePage.routeName: (context) => PurchasePage(),
-      },
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Login(),
-      // Login(),
+  AppTheme buildAppTheme(String colorId) {
+    return AppTheme(
+      id: colorId,
+      data: ThemeData(
+        primarySwatch: colorId.contains('red')
+            ? Colors.red
+            : colorId.contains('blue')
+                ? Colors.blue
+                : colorId.contains('teal')
+                    ? Colors.teal
+                    : colorId.contains('green')
+                        ? Colors.green
+                        : colorId.contains('purple')
+                            ? Colors.purple
+                            : colorId.contains('orange')
+                                ? Colors.deepOrange
+                                : null,
+        textTheme: Style().textTheme,
+      ),
+      description: '',
     );
   }
 }
