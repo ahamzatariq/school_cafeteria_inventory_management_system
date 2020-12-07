@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_web/menu_pages/items_page.dart';
 
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:flutter_web/menu_pages/purchase_page.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -22,7 +23,6 @@ class _DashboardPageState extends State<DashboardPage> {
         drawerIconSize: 32,
         sliderMenu: LayoutBuilder(
           builder: (context, constraints) {
-            print(constraints.maxWidth);
             menuWidth = constraints.maxWidth;
             return Container(
               color: Theme.of(context).primaryColorLight,
@@ -163,7 +163,7 @@ class _DashboardPageState extends State<DashboardPage> {
           constraints: constraints,
           menuWidth: menuWidth,
         ),
-      if (listItemTitle == 1) Container(),
+      if (listItemTitle == 1) PurchasePage(),
       if (listItemTitle == 2) Container(),
       if (listItemTitle == 3) Container(),
       Container()
