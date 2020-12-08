@@ -3,11 +3,11 @@ import 'item.dart';
 class Transaction {
   String id;
   Item item;
-  String userId;
+  int userId;
   int amount;
   int type;
   int quantity;
-  DateTime created;
+  String created;
 
   Transaction({
     this.id,
@@ -20,6 +20,14 @@ class Transaction {
   });
 
   Transaction fromMap(Map<String, dynamic> transactionMap) {
-    return Transaction();
+    return Transaction(
+      id: transactionMap['id'],
+      item: Item(id: transactionMap['Item']),
+      userId: transactionMap['User_id'],
+      amount: transactionMap['Amount'],
+      type: transactionMap['Type'],
+      quantity: transactionMap['Qty'],
+      created: transactionMap['Created'],
+    );
   }
 }

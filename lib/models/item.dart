@@ -18,12 +18,13 @@ class Item {
 
   Item fromMap(Map<String, dynamic> itemMap) {
     return Item(
-        id: itemMap['id'],
-        name: itemMap['Name'],
-        quantity: itemMap['QtyInStock'],
-        buyingPrice: double.parse(itemMap['BuyingPrice']),
-        sellingPrice: double.parse(itemMap['SellingPrice']),
-        profitPerPiece: double.parse(itemMap['ProfitPerPiece']),
-        brand: itemMap['Brand']);
+      id: itemMap['id'],
+      name: itemMap['Name'],
+      quantity: itemMap['QtyInStock'],
+      buyingPrice: double.parse(itemMap['BuyingPrice']),
+      sellingPrice: double.parse(itemMap['SellingPrice']),
+      profitPerPiece: double.parse(itemMap['ProfitPerPiece']),
+      brand: itemMap['Brand'],
+    );
   }
 }

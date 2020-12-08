@@ -25,6 +25,7 @@ class _ItemsPageState extends State<ItemsPage> {
   Widget build(BuildContext context) {
     getItems();
     getBrands();
+    getTransactions();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -160,6 +161,26 @@ class _ItemsPageState extends State<ItemsPage> {
       print('Status code: ${response.statusCode}');
     }
     // return items;
+  }
+
+  getTransactions() async {
+    final response = await http.get(
+      'http://localhost:8000/api/transactions/',
+    );
+
+    List<Transaction> transactions = [];
+
+    if (response.statusCode == 200) {
+      List<dynamic> v = json.decode(response.body);
+      for (var item in v) {
+        transactions.add(
+          Transaction().fromMap(item),
+        );
+      }
+      print(v[0]);
+    } else {
+      print('Status code: ${response.statusCode}');
+    }
   }
 
   openAddItemPopup(BuildContext context) {
