@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_web/models/brand.dart';
 import 'package:flutter_web/models/item.dart';
+import 'package:flutter_web/models/transaction.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -9,7 +11,6 @@ import 'dart:convert';
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
 
-  List<Item> getItems = [];
   final BoxConstraints constraints;
   final double menuWidth;
 
@@ -23,6 +24,7 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     getItems();
+    getBrands();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -120,21 +122,42 @@ class _ItemsPageState extends State<ItemsPage> {
   }
 
   getItems() async {
-    final items = await http.get(
+    final response = await http.get(
       'http://localhost:8000/api/items/',
     );
+    List<Item> items = [];
 
-    if (items.statusCode == 200) {
-      List<dynamic> v = json.decode(items.body);
+    if (response.statusCode == 200) {
+      List<dynamic> v = json.decode(response.body);
       for (var item in v) {
-        widget.getItems.add(
+        items.add(
           Item().fromMap(item),
         );
       }
       print(v[0]);
-      print(widget.getItems[0].buyingPrice);
     } else {
-      print('Status code: ${items.statusCode}');
+      print('Status code: ${response.statusCode}');
+    }
+    // return items;
+  }
+
+  getBrands() async {
+    final response = await http.get(
+      'http://localhost:8000/api/brands/',
+    );
+
+    List<Brand> brands = [];
+
+    if (response.statusCode == 200) {
+      List<dynamic> v = json.decode(response.body);
+      for (var item in v) {
+        brands.add(
+          Brand().fromMap(item),
+        );
+      }
+      print(v[0]);
+    } else {
+      print('Status code: ${response.statusCode}');
     }
     // return items;
   }

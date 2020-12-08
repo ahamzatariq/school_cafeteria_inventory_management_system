@@ -8,6 +8,9 @@ class Brand {
   });
 
   Brand fromMap(Map<String, dynamic> brandMap) {
-    return Brand();
+    return Brand(
+      id: brandMap['id'],
+      name: brandMap['Name'],
+    );
   }
 }
