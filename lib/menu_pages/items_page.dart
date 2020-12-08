@@ -126,6 +126,13 @@ class _ItemsPageState extends State<ItemsPage> {
 
     if (items.statusCode == 200) {
       List<dynamic> v = json.decode(items.body);
+      for (var item in v) {
+        widget.getItems.add(
+          Item().fromMap(item),
+        );
+      }
+      print(v[0]);
+      print(widget.getItems[0].buyingPrice);
     } else {
       print('Status code: ${items.statusCode}');
     }

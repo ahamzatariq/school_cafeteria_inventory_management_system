@@ -21,9 +21,9 @@ class Item {
         id: itemMap['id'],
         name: itemMap['Name'],
         quantity: itemMap['QtyInStock'],
-        buyingPrice: itemMap['BuyingPrice'],
-        sellingPrice: itemMap['SellingPrice'],
-        profitPerPiece: itemMap['ProfitPerPiece'],
+        buyingPrice: double.parse(itemMap['BuyingPrice']),
+        sellingPrice: double.parse(itemMap['SellingPrice']),
+        profitPerPiece: double.parse(itemMap['ProfitPerPiece']),
         brand: itemMap['Brand']);
   }
 }
