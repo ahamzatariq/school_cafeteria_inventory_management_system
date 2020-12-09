@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_web/pages/dashboard_page.dart';
+import 'package:flutter_web/services/apis.dart';
 import 'package:http/http.dart' as http;
 
 class LoginPage extends StatelessWidget {
@@ -34,10 +35,11 @@ class LoginPage extends StatelessWidget {
   }
 
   Future<String> _loginUser(LoginData p1) async {
-    var response = await http.post('http://127.0.0.1:8000/auth/',
-        body: {'username': p1.name, 'password': p1.password});
-    token = response.body;
-    // return token;
+    try {
+      token = await APIs().postAuth(p1);
+    } catch (e) {
+      return e.toString();
+    }
   }
 
   Future<String> _signUpUser(LoginData p1) {}

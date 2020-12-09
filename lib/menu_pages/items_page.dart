@@ -5,6 +5,7 @@ import 'package:flutter_web/models/item.dart';
 import 'package:flutter_web/models/transaction.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flutter_web/services/apis.dart';
 
 import 'dart:convert';
 
@@ -23,9 +24,9 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
-    getItems();
-    getBrands();
-    getTransactions();
+    APIs().getItems();
+    APIs().getBrands();
+    APIs().getTransaction();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -109,78 +110,7 @@ class _ItemsPageState extends State<ItemsPage> {
           ),
         ),
       ),
-      // Positioned(
-      //   bottom: 16,
-      //   right: 16,
-      //   child: FloatingActionButton(
-      //     child: Icon(Icons.add),
-      //     onPressed: () {
-      //       openAddItemPopup(context);
-      //     },
-      //   ),
-      // ),
     ]);
-  }
-
-  getItems() async {
-    final response = await http.get(
-      'http://localhost:8000/api/items/',
-    );
-    List<Item> items = [];
-
-    if (response.statusCode == 200) {
-      List<dynamic> v = json.decode(response.body);
-      for (var item in v) {
-        items.add(
-          Item().fromMap(item),
-        );
-      }
-      print(v[0]);
-    } else {
-      print('Status code: ${response.statusCode}');
-    }
-    // return items;
-  }
-
-  getBrands() async {
-    final response = await http.get(
-      'http://localhost:8000/api/brands/',
-    );
-
-    List<Brand> brands = [];
-
-    if (response.statusCode == 200) {
-      List<dynamic> v = json.decode(response.body);
-      for (var item in v) {
-        brands.add(
-          Brand().fromMap(item),
-        );
-      }
-      print(v[0]);
-    } else {
-      print('Status code: ${response.statusCode}');
-    }
-    // return items;
-  }
-
-  getTransactions() async {
-    final response = await http.get(
-      'http://localhost:8000/api/transactions/',
-    );
-
-    List<Transaction> transactions = [];
-
-    if (response.statusCode == 200) {
-      List<dynamic> v = json.decode(response.body);
-      for (var item in v) {
-        transactions.add(
-          Transaction().fromMap(item),
-        );
-      }
-      print(v[0]);
-    } else {
-      print('Status code: ${response.statusCode}');
-    }
   }
 
   openAddItemPopup(BuildContext context) {
