@@ -26,6 +26,18 @@ class APIs {
     return items;
   }
 
+  postItems(Item item) async {
+    final response = await http.post('http://localhost:8000/api/items/', body: {
+      'Name': item.name,
+      'QtyInStock': item.quantity.toString(),
+      'BuyingPrice': item.buyingPrice.toString(),
+      'SellingPrice': item.sellingPrice.toString(),
+      'ProfitPerPiece': (item.sellingPrice - item.buyingPrice).toString(),
+      'Brand': '4b8751c6-268d-4748-8862-17d72b651c51'
+    });
+    print(response.body);
+  }
+
   Future<List<Brand>> getBrands() async {
     final response = await http.get(
       'http://localhost:8000/api/brands/',

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web/menu_pages/items_page.dart';
 import 'package:flutter_web/menu_pages/sales_page.dart';
-import 'package:flutter_web/pages/dashboard_page.dart';
 import 'package:flutter_web/theme/style.dart';
 import 'package:theme_provider/theme_provider.dart';
 

@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_web/models/brand.dart';
 import 'package:flutter_web/models/item.dart';
-import 'package:flutter_web/models/transaction.dart';
-import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_web/services/apis.dart';
-
-import 'dart:convert';
 
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
@@ -114,6 +109,10 @@ class _ItemsPageState extends State<ItemsPage> {
   }
 
   openAddItemPopup(BuildContext context) {
+    TextEditingController name = TextEditingController();
+    TextEditingController quantity = TextEditingController();
+    TextEditingController buyingPrice = TextEditingController();
+    TextEditingController sellingPrice = TextEditingController();
     Alert(
       context: context,
       title: 'Add Item',
@@ -128,6 +127,7 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Item Name',
             ),
+            controller: name,
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
@@ -138,6 +138,8 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Quantity',
             ),
+            keyboardType: TextInputType.number,
+            controller: quantity,
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
@@ -148,6 +150,8 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Buying Price',
             ),
+            keyboardType: TextInputType.number,
+            controller: buyingPrice,
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
@@ -158,12 +162,21 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Selling Price',
             ),
+            keyboardType: TextInputType.number,
+            controller: sellingPrice,
           ),
         ],
       ),
       buttons: [
         DialogButton(
           onPressed: () {
+            Item newItem = Item(
+              name: name.text,
+              quantity: int.parse(quantity.text),
+              sellingPrice: double.parse(sellingPrice.text),
+              buyingPrice: double.parse(buyingPrice.text),
+            );
+            APIs().postItems(newItem);
             Navigator.of(context).pop();
           },
           child: Text(
