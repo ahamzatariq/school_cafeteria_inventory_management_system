@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_web/models/item.dart';
-import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
-
-import 'dart:convert';
+import 'package:flutter_web/services/apis.dart';
 
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
 
-  List<Item> getItems = [];
   final BoxConstraints constraints;
   final double menuWidth;
 
@@ -22,7 +19,9 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
-    getItems();
+    APIs().getItems();
+    APIs().getBrands();
+    APIs().getTransaction();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -106,40 +105,14 @@ class _ItemsPageState extends State<ItemsPage> {
           ),
         ),
       ),
-      // Positioned(
-      //   bottom: 16,
-      //   right: 16,
-      //   child: FloatingActionButton(
-      //     child: Icon(Icons.add),
-      //     onPressed: () {
-      //       openAddItemPopup(context);
-      //     },
-      //   ),
-      // ),
     ]);
   }
 
-  getItems() async {
-    final items = await http.get(
-      'http://localhost:8000/api/items/',
-    );
-
-    if (items.statusCode == 200) {
-      List<dynamic> v = json.decode(items.body);
-      for (var item in v) {
-        widget.getItems.add(
-          Item().fromMap(item),
-        );
-      }
-      print(v[0]);
-      print(widget.getItems[0].buyingPrice);
-    } else {
-      print('Status code: ${items.statusCode}');
-    }
-    // return items;
-  }
-
   openAddItemPopup(BuildContext context) {
+    TextEditingController name = TextEditingController();
+    TextEditingController quantity = TextEditingController();
+    TextEditingController buyingPrice = TextEditingController();
+    TextEditingController sellingPrice = TextEditingController();
     Alert(
       context: context,
       title: 'Add Item',
@@ -154,6 +127,7 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Item Name',
             ),
+            controller: name,
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
@@ -164,6 +138,8 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Quantity',
             ),
+            keyboardType: TextInputType.number,
+            controller: quantity,
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
@@ -174,6 +150,8 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Buying Price',
             ),
+            keyboardType: TextInputType.number,
+            controller: buyingPrice,
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
@@ -184,12 +162,21 @@ class _ItemsPageState extends State<ItemsPage> {
               ),
               labelText: 'Selling Price',
             ),
+            keyboardType: TextInputType.number,
+            controller: sellingPrice,
           ),
         ],
       ),
       buttons: [
         DialogButton(
           onPressed: () {
+            Item newItem = Item(
+              name: name.text,
+              quantity: int.parse(quantity.text),
+              sellingPrice: double.parse(sellingPrice.text),
+              buyingPrice: double.parse(buyingPrice.text),
+            );
+            APIs().postItems(newItem);
             Navigator.of(context).pop();
           },
           child: Text(
