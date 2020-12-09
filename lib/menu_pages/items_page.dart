@@ -19,7 +19,7 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
-    APIs().getItems();
+    Future<List<Item>> items = APIs().getItems();
     APIs().getBrands();
     APIs().getTransaction();
     return Stack(children: [
@@ -28,80 +28,69 @@ class _ItemsPageState extends State<ItemsPage> {
         child: Container(
           height: widget.constraints.maxHeight,
           width: widget.constraints.maxWidth / 2.5,
-          child: DataTable(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-            ),
-            showBottomBorder: true,
-            sortColumnIndex: 1,
-            sortAscending: true,
-            dataTextStyle: Theme.of(context).textTheme.headline3,
-            headingRowColor: MaterialStateProperty.resolveWith<Color>(
-              (states) => Theme.of(context).primaryColorLight,
-            ),
-            headingTextStyle: Theme.of(context)
-                .textTheme
-                .headline3
-                .copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
-            columns: [
-              DataColumn(
-                label: Text('ITEM NAME'),
-              ),
-              DataColumn(
-                label: Text('QUANTITY'),
-                numeric: true,
-              ),
-              DataColumn(
-                label: Text('BUYING PRICE'),
-                numeric: true,
-              ),
-              DataColumn(
-                label: Text('SELLING PRICE'),
-                numeric: true,
-              ),
-            ],
-            rows: [
-              DataRow(
-                cells: [
-                  DataCell(Text('Burger')),
-                  DataCell(Text('16')),
-                  DataCell(Text('45')),
-                  DataCell(Text('50')),
-                ],
-              ),
-              DataRow(
-                cells: [
-                  DataCell(Text('Pizza')),
-                  DataCell(Text('20')),
-                  DataCell(Text('69')),
-                  DataCell(Text('75')),
-                ],
-              ),
-              DataRow(
-                cells: [
-                  DataCell(Text('Chocolate')),
-                  DataCell(Text('604')),
-                  DataCell(Text('9.08')),
-                  DataCell(Text('10')),
-                ],
-              ),
-              DataRow(
-                cells: [
-                  DataCell(Text('Caps')),
-                  DataCell(Text('41')),
-                  DataCell(Text('150')),
-                  DataCell(Text('200')),
-                ],
-              ),
-              DataRow(
-                cells: [
-                  DataCell(Text('Sandwich')),
-                  DataCell(Text('0')),
-                  DataCell(Text('9')),
-                  DataCell(Text('10')),
-                ],
-              ),
-            ],
+          child: FutureBuilder(
+            future: items,
+            builder: (BuildContext context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return Container(
+                  height: 100,
+                  width: 100,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                );
+
+              if (snapshot.connectionState == ConnectionState.done)
+                return DataTable(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  showBottomBorder: true,
+                  sortColumnIndex: 1,
+                  sortAscending: true,
+                  dataTextStyle: Theme.of(context).textTheme.headline3,
+                  headingRowColor: MaterialStateProperty.resolveWith<Color>(
+                    (states) => Theme.of(context).primaryColorLight,
+                  ),
+                  headingTextStyle: Theme.of(context)
+                      .textTheme
+                      .headline3
+                      .copyWith(
+                          fontWeight: FontWeight.bold, color: Colors.black87),
+                  columns: [
+                    DataColumn(
+                      label: Text('ITEM NAME'),
+                    ),
+                    DataColumn(
+                      label: Text('QUANTITY'),
+                      numeric: true,
+                    ),
+                    DataColumn(
+                      label: Text('BUYING PRICE'),
+                      numeric: true,
+                    ),
+                    DataColumn(
+                      label: Text('SELLING PRICE'),
+                      numeric: true,
+                    ),
+                  ],
+                  rows: [
+                    if (snapshot.connectionState == ConnectionState.done)
+                      for (var item in snapshot.data)
+                        DataRow(
+                          cells: [
+                            DataCell(Text(item.name)),
+                            DataCell(Text(item.quantity.toString())),
+                            DataCell(Text(item.buyingPrice.toString())),
+                            DataCell(Text(item.sellingPrice.toString())),
+                          ],
+                        ),
+                  ],
+                );
+              return Container();
+            },
           ),
         ),
       ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_web/pages/dashboard_page.dart';
 import 'package:flutter_web/services/apis.dart';
-import 'package:http/http.dart' as http;
 
 class LoginPage extends StatelessWidget {
   String token;
