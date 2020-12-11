@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web/menu_pages/items_page.dart';
 
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
-import 'package:flutter_web/menu_pages/purchase_page.dart';
-import 'package:flutter_web/menu_pages/sales_page.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+
+import 'package:flutter_web/menu_pages/items_page.dart';
+import 'package:flutter_web/menu_pages/purchase_page.dart';
+import 'package:flutter_web/menu_pages/sales_page.dart';
 
 enum ListItems { items, purchase, sales, report }
 

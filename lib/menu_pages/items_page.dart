@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
 import 'package:flutter_web/models/item.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_web/services/apis.dart';
+
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
@@ -20,8 +22,6 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     Future<List<Item>> items = APIs().getItems();
-    APIs().getBrands();
-    APIs().getTransaction();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -43,58 +43,61 @@ class _ItemsPageState extends State<ItemsPage> {
                 );
 
               if (snapshot.connectionState == ConnectionState.done)
-                return DataTable(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  showBottomBorder: true,
-                  sortColumnIndex: 1,
-                  sortAscending: true,
-                  dataTextStyle: Theme.of(context).textTheme.headline3,
-                  headingRowColor: MaterialStateProperty.resolveWith<Color>(
-                    (states) => Theme.of(context).primaryColorLight,
-                  ),
-                  headingTextStyle: Theme.of(context)
-                      .textTheme
-                      .headline3
-                      .copyWith(
-                          fontWeight: FontWeight.bold, color: Colors.black87),
-                  columns: [
-                    DataColumn(
-                      label: Text('ITEM NAME'),
-                    ),
-                    DataColumn(
-                      label: Text('QUANTITY'),
-                      numeric: true,
-                    ),
-                    DataColumn(
-                      label: Text('BUYING PRICE'),
-                      numeric: true,
-                    ),
-                    DataColumn(
-                      label: Text('SELLING PRICE'),
-                      numeric: true,
-                    ),
-                  ],
-                  rows: [
-                    if (snapshot.connectionState == ConnectionState.done)
-                      for (var item in snapshot.data)
-                        DataRow(
-                          cells: [
-                            DataCell(Text(item.name)),
-                            DataCell(Text(item.quantity.toString())),
-                            DataCell(Text(item.buyingPrice.toString())),
-                            DataCell(Text(item.sellingPrice.toString())),
-                          ],
-                        ),
-                  ],
-                );
+                return buildItemDataTable(context, snapshot);
               return Container();
             },
           ),
         ),
       ),
     ]);
+  }
+
+  DataTable buildItemDataTable(BuildContext context, AsyncSnapshot snapshot) {
+    return DataTable(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      showBottomBorder: true,
+      sortColumnIndex: 1,
+      sortAscending: true,
+      dataTextStyle: Theme.of(context).textTheme.headline3,
+      headingRowColor: MaterialStateProperty.resolveWith<Color>(
+        (states) => Theme.of(context).primaryColorLight,
+      ),
+      headingTextStyle: Theme.of(context)
+          .textTheme
+          .headline3
+          .copyWith(fontWeight: FontWeight.bold, color: Colors.black87),
+      columns: [
+        DataColumn(
+          label: Text('ITEM NAME'),
+        ),
+        DataColumn(
+          label: Text('QUANTITY'),
+          numeric: true,
+        ),
+        DataColumn(
+          label: Text('BUYING PRICE'),
+          numeric: true,
+        ),
+        DataColumn(
+          label: Text('SELLING PRICE'),
+          numeric: true,
+        ),
+      ],
+      rows: [
+        if (snapshot.connectionState == ConnectionState.done)
+          for (var item in snapshot.data)
+            DataRow(
+              cells: [
+                DataCell(Text(item.name)),
+                DataCell(Text(item.quantity.toString())),
+                DataCell(Text(item.buyingPrice.toString())),
+                DataCell(Text(item.sellingPrice.toString())),
+              ],
+            ),
+      ],
+    );
   }
 
   openAddItemPopup(BuildContext context) {
