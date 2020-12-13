@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_web/menu_pages/items_page.dart';
 import 'package:flutter_web/menu_pages/sales_page.dart';
 import 'package:flutter_web/theme/style.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:flutter_web/menu_pages/purchase_page.dart';
+import 'package:flutter_web/pages/login_page.dart';
 
-import 'menu_pages/purchase_page.dart';
-import 'pages/login_page.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 void main() {
   runApp(MyApp());
