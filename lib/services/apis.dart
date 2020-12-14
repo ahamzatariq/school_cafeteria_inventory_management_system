@@ -55,11 +55,25 @@ class APIs {
           Brand().fromMap(item),
         );
       }
-      print(v[0]);
     } else {
       print('Status code: ${response.statusCode}');
     }
     return brands;
+  }
+
+  Future<Brand> getBrand(String id) async {
+    final response = await http.get(
+      'http://localhost:8000/api/brands/$id',
+    );
+
+    Brand brand;
+    if (response.statusCode == 200) {
+      brand = Brand().fromMap(json.decode(response.body));
+      print(brand.name);
+    } else {
+      print('Status code: ${response.statusCode}');
+    }
+    return brand;
   }
 
   Future<List<Transaction>> getTransaction() async {

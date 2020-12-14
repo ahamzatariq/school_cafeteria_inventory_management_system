@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_web/models/brand.dart';
 
 import 'package:flutter_web/models/item.dart';
 import 'package:flutter_web/services/apis.dart';
@@ -22,6 +23,10 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     Future<List<Item>> items = APIs().getItems();
+    Future<List<Brand>> brands = APIs().getBrands();
+    Future<Brand> brand =
+        APIs().getBrand('4b8751c6-268d-4748-8862-17d72b651c51');
+    print(brand);
     return Stack(children: [
       Align(
         alignment: Alignment.center,
@@ -102,6 +107,7 @@ class _ItemsPageState extends State<ItemsPage> {
 
   openAddItemPopup(BuildContext context) {
     TextEditingController name = TextEditingController();
+    TextEditingController brand = TextEditingController();
     TextEditingController quantity = TextEditingController();
     TextEditingController buyingPrice = TextEditingController();
     TextEditingController sellingPrice = TextEditingController();
@@ -120,6 +126,17 @@ class _ItemsPageState extends State<ItemsPage> {
               labelText: 'Item Name',
             ),
             controller: name,
+          ),
+          TextField(
+            style: Theme.of(context).textTheme.headline3,
+            decoration: InputDecoration(
+              icon: Icon(
+                Icons.apartment_rounded,
+                color: Theme.of(context).primaryColorDark,
+              ),
+              labelText: 'Brand',
+            ),
+            controller: brand,
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
