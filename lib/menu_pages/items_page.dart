@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_web/models/brand.dart';
 
 import 'package:flutter_web/models/item.dart';
 import 'package:flutter_web/services/apis.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
@@ -22,12 +24,13 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     Future<List<Item>> items = APIs().getItems();
+    // Future<List<Brand>> brands = APIs().getBrands();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
         child: Container(
           height: widget.constraints.maxHeight,
-          width: widget.constraints.maxWidth / 2.5,
+          width: widget.constraints.maxWidth / 2.2,
           child: FutureBuilder(
             future: items,
             builder: (BuildContext context, snapshot) {
@@ -73,6 +76,9 @@ class _ItemsPageState extends State<ItemsPage> {
           label: Text('ITEM NAME'),
         ),
         DataColumn(
+          label: Text('BRAND'),
+        ),
+        DataColumn(
           label: Text('QUANTITY'),
           numeric: true,
         ),
@@ -87,10 +93,11 @@ class _ItemsPageState extends State<ItemsPage> {
       ],
       rows: [
         if (snapshot.connectionState == ConnectionState.done)
-          for (var item in snapshot.data)
+          for (Item item in snapshot.data)
             DataRow(
               cells: [
                 DataCell(Text(item.name)),
+                DataCell(Text(item.brand.substring(0, 4))),
                 DataCell(Text(item.quantity.toString())),
                 DataCell(Text(item.buyingPrice.toString())),
                 DataCell(Text(item.sellingPrice.toString())),
@@ -102,6 +109,7 @@ class _ItemsPageState extends State<ItemsPage> {
 
   openAddItemPopup(BuildContext context) {
     TextEditingController name = TextEditingController();
+    TextEditingController brand = TextEditingController();
     TextEditingController quantity = TextEditingController();
     TextEditingController buyingPrice = TextEditingController();
     TextEditingController sellingPrice = TextEditingController();
@@ -120,6 +128,32 @@ class _ItemsPageState extends State<ItemsPage> {
               labelText: 'Item Name',
             ),
             controller: name,
+          ),
+          FutureBuilder(
+            future: APIs().brandNames(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              if (snapshot.connectionState == ConnectionState.done)
+                return DropdownSearch<String>(
+                  validator: (value) => null ? 'required field' : null,
+                  mode: Mode.MENU,
+                  showSelectedItem: true,
+                  items: snapshot.data,
+                  showSearchBox: true,
+                  searchBoxController: brand,
+                  dropdownSearchDecoration: InputDecoration(
+                    icon: Icon(
+                      Icons.apartment_rounded,
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                    labelText: 'Brand',
+                  ),
+                );
+              return Container();
+            },
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
