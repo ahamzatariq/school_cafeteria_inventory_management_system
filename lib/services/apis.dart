@@ -112,4 +112,18 @@ class APIs {
     }
     return brandNamesList;
   }
+
+  patchItem(Item item) async {
+    final response =
+        await http.patch('http://localhost:8000/api/items/${item.id}/', body: {
+      'Name': item.name,
+      'QtyInStock': item.quantity.toString(),
+      'BuyingPrice': item.buyingPrice.toString(),
+      'SellingPrice': item.sellingPrice.toString(),
+      'ProfitPerPiece': (item.sellingPrice - item.buyingPrice).toString(),
+      'Brand': '4b8751c6-268d-4748-8862-17d72b651c51'
+    });
+    print('patch');
+    print(response.body);
+  }
 }

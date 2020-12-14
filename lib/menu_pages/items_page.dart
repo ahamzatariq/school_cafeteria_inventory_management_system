@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_web/models/brand.dart';
 
 import 'package:flutter_web/models/item.dart';
 import 'package:flutter_web/services/apis.dart';
@@ -24,13 +23,12 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     Future<List<Item>> items = APIs().getItems();
-    // Future<List<Brand>> brands = APIs().getBrands();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
         child: Container(
           height: widget.constraints.maxHeight,
-          width: widget.constraints.maxWidth / 2.2,
+          width: widget.constraints.maxWidth / 2.1,
           child: FutureBuilder(
             future: items,
             builder: (BuildContext context, snapshot) {
@@ -47,6 +45,7 @@ class _ItemsPageState extends State<ItemsPage> {
 
               if (snapshot.connectionState == ConnectionState.done)
                 return buildItemDataTable(context, snapshot);
+
               return Container();
             },
           ),
@@ -96,23 +95,35 @@ class _ItemsPageState extends State<ItemsPage> {
           for (Item item in snapshot.data)
             DataRow(
               cells: [
-                DataCell(Text(item.name)),
-                DataCell(Text(item.brand.substring(0, 4))),
-                DataCell(Text(item.quantity.toString())),
-                DataCell(Text(item.buyingPrice.toString())),
-                DataCell(Text(item.sellingPrice.toString())),
+                DataCell(
+                    Text(
+                      item.name,
+                      maxLines: 1,
+                    ),
+                    onTap: () => openAddItemPopup(context, item, true)),
+                DataCell(Text(item.brand.substring(0, 4)),
+                    onTap: () => openAddItemPopup(context, item, true)),
+                DataCell(Text(item.quantity.toString()),
+                    onTap: () => openAddItemPopup(context, item, true)),
+                DataCell(Text(item.buyingPrice.toString()),
+                    onTap: () => openAddItemPopup(context, item, true)),
+                DataCell(Text(item.sellingPrice.toString()),
+                    onTap: () => openAddItemPopup(context, item, true)),
               ],
             ),
       ],
     );
   }
 
-  openAddItemPopup(BuildContext context) {
-    TextEditingController name = TextEditingController();
-    TextEditingController brand = TextEditingController();
-    TextEditingController quantity = TextEditingController();
-    TextEditingController buyingPrice = TextEditingController();
-    TextEditingController sellingPrice = TextEditingController();
+  openAddItemPopup(BuildContext context, Item item, bool isEdit) {
+    TextEditingController name = TextEditingController()..text = item.name;
+    TextEditingController brand = TextEditingController()..text = item.brand;
+    TextEditingController quantity = TextEditingController()
+      ..text = item.quantity.toString();
+    TextEditingController buyingPrice = TextEditingController()
+      ..text = item.buyingPrice.toString();
+    TextEditingController sellingPrice = TextEditingController()
+      ..text = item.sellingPrice.toString();
     Alert(
       context: context,
       title: 'Add Item',
@@ -202,7 +213,7 @@ class _ItemsPageState extends State<ItemsPage> {
               sellingPrice: double.parse(sellingPrice.text),
               buyingPrice: double.parse(buyingPrice.text),
             );
-            APIs().postItems(newItem);
+            isEdit ? APIs().patchItem(newItem) : APIs().postItems(newItem);
             Navigator.of(context).pop();
           },
           child: Text(
