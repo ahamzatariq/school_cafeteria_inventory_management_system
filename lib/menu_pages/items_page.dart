@@ -24,16 +24,13 @@ class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
     Future<List<Item>> items = APIs().getItems();
-    Future<List<Brand>> brands = APIs().getBrands();
-    Future<Brand> brand =
-        APIs().getBrand('4b8751c6-268d-4748-8862-17d72b651c51');
-    print(brand);
+    // Future<List<Brand>> brands = APIs().getBrands();
     return Stack(children: [
       Align(
         alignment: Alignment.center,
         child: Container(
           height: widget.constraints.maxHeight,
-          width: widget.constraints.maxWidth / 2.5,
+          width: widget.constraints.maxWidth / 2.2,
           child: FutureBuilder(
             future: items,
             builder: (BuildContext context, snapshot) {
@@ -79,6 +76,9 @@ class _ItemsPageState extends State<ItemsPage> {
           label: Text('ITEM NAME'),
         ),
         DataColumn(
+          label: Text('BRAND'),
+        ),
+        DataColumn(
           label: Text('QUANTITY'),
           numeric: true,
         ),
@@ -93,10 +93,11 @@ class _ItemsPageState extends State<ItemsPage> {
       ],
       rows: [
         if (snapshot.connectionState == ConnectionState.done)
-          for (var item in snapshot.data)
+          for (Item item in snapshot.data)
             DataRow(
               cells: [
                 DataCell(Text(item.name)),
+                DataCell(Text(item.brand.substring(0, 4))),
                 DataCell(Text(item.quantity.toString())),
                 DataCell(Text(item.buyingPrice.toString())),
                 DataCell(Text(item.sellingPrice.toString())),
