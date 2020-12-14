@@ -69,7 +69,6 @@ class APIs {
     Brand brand;
     if (response.statusCode == 200) {
       brand = Brand().fromMap(json.decode(response.body));
-      print(brand.name);
     } else {
       print('Status code: ${response.statusCode}');
     }
@@ -102,5 +101,15 @@ class APIs {
         body: {'username': p1.name, 'password': p1.password});
     var token = response.body;
     return token;
+  }
+
+  Future<List<String>> brandNames() async {
+    List<Brand> brands = await getBrands();
+    List<String> brandNamesList = [];
+
+    for (var brand in brands) {
+      brandNamesList.add(brand.name);
+    }
+    return brandNamesList;
   }
 }

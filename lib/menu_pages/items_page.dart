@@ -6,6 +6,7 @@ import 'package:flutter_web/models/item.dart';
 import 'package:flutter_web/services/apis.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
@@ -127,16 +128,31 @@ class _ItemsPageState extends State<ItemsPage> {
             ),
             controller: name,
           ),
-          TextField(
-            style: Theme.of(context).textTheme.headline3,
-            decoration: InputDecoration(
-              icon: Icon(
-                Icons.apartment_rounded,
-                color: Theme.of(context).primaryColorDark,
-              ),
-              labelText: 'Brand',
-            ),
-            controller: brand,
+          FutureBuilder(
+            future: APIs().brandNames(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              if (snapshot.connectionState == ConnectionState.done)
+                return DropdownSearch<String>(
+                  validator: (value) => null ? 'required field' : null,
+                  mode: Mode.MENU,
+                  showSelectedItem: true,
+                  items: snapshot.data,
+                  showSearchBox: true,
+                  searchBoxController: brand,
+                  dropdownSearchDecoration: InputDecoration(
+                    icon: Icon(
+                      Icons.apartment_rounded,
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                    labelText: 'Brand',
+                  ),
+                );
+              return Container();
+            },
           ),
           TextField(
             style: Theme.of(context).textTheme.headline3,
