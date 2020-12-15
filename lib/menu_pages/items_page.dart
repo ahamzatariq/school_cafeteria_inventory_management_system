@@ -6,6 +6,7 @@ import 'package:flutter_web/services/apis.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:http/http.dart' as http;
 
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
@@ -135,12 +136,36 @@ class _ItemsPageState extends State<ItemsPage> {
                     Icon(
                       Icons.delete,
                       color: Colors.red,
-                    ),
-                    onTap: () {}),
+                    ), onTap: () {
+                  openDeleteItemPopup(context, item.id);
+                }),
               ],
             ),
       ],
     );
+  }
+
+  openDeleteItemPopup(BuildContext context, String itemId) {
+    bool isSuccess = false;
+    Alert(
+        context: context,
+        type: isSuccess ? AlertType.success : AlertType.warning,
+        desc: 'Item successfully deleted',
+        title: 'Delete Item',
+        buttons: [
+          DialogButton(
+            child: Text(
+              'Delete',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            onPressed: () {
+              http.Response response;
+              APIs().deleteItem(itemId).then((value) => response = value);
+              print(response);
+              Navigator.of(context).pop();
+            },
+          ),
+        ]).show();
   }
 
   openAddItemPopup(BuildContext context, Item item, bool isEdit) {
