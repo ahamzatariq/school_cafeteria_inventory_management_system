@@ -82,11 +82,33 @@ class _ItemsPageState extends State<ItemsPage> {
           numeric: true,
         ),
         DataColumn(
-          label: Text('BUYING PRICE'),
+          label: Column(
+            children: [
+              Expanded(
+                child: Text('BUYING'),
+              ),
+              Expanded(
+                child: Text('PRICE'),
+              ),
+            ],
+          ),
           numeric: true,
         ),
         DataColumn(
-          label: Text('SELLING PRICE'),
+          label: Column(
+            children: [
+              Expanded(
+                child: Text('SELLING'),
+              ),
+              Expanded(
+                child: Text('PRICE'),
+              ),
+            ],
+          ),
+          numeric: true,
+        ),
+        DataColumn(
+          label: Text('   '),
           numeric: true,
         ),
       ],
@@ -109,6 +131,12 @@ class _ItemsPageState extends State<ItemsPage> {
                     onTap: () => openAddItemPopup(context, item, true)),
                 DataCell(Text(item.sellingPrice.toString()),
                     onTap: () => openAddItemPopup(context, item, true)),
+                DataCell(
+                    Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                    onTap: () {}),
               ],
             ),
       ],
