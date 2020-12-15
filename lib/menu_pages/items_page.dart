@@ -119,14 +119,14 @@ class _ItemsPageState extends State<ItemsPage> {
     TextEditingController name = TextEditingController()..text = item.name;
     TextEditingController brand = TextEditingController()..text = item.brand;
     TextEditingController quantity = TextEditingController()
-      ..text = item.quantity.toString();
+      ..text = item.quantity == null ? '' : item.quantity.toString();
     TextEditingController buyingPrice = TextEditingController()
-      ..text = item.buyingPrice.toString();
+      ..text = item.buyingPrice == null ? '' : item.buyingPrice.toString();
     TextEditingController sellingPrice = TextEditingController()
-      ..text = item.sellingPrice.toString();
+      ..text = item.sellingPrice == null ? '' : item.sellingPrice.toString();
     Alert(
       context: context,
-      title: 'Add Item',
+      title: isEdit ? 'Edit Item' : 'Add Item',
       content: Column(
         children: [
           TextField(
@@ -208,6 +208,7 @@ class _ItemsPageState extends State<ItemsPage> {
         DialogButton(
           onPressed: () {
             Item newItem = Item(
+              id: item.id,
               name: name.text,
               quantity: int.parse(quantity.text),
               sellingPrice: double.parse(sellingPrice.text),
@@ -217,7 +218,7 @@ class _ItemsPageState extends State<ItemsPage> {
             Navigator.of(context).pop();
           },
           child: Text(
-            'Add Item',
+            isEdit ? 'Update' : 'Add Item',
             style: Theme.of(context).textTheme.headline4,
           ),
         )
