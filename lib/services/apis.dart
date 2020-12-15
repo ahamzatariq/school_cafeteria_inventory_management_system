@@ -120,4 +120,8 @@ class APIs {
       'Brand': '4b8751c6-268d-4748-8862-17d72b651c51'
     });
   }
+
+  Future<http.Response> deleteItem(String itemId) async {
+    return await http.delete('http://localhost:8000/api/items/$itemId');
+  }
 }

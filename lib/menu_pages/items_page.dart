@@ -6,6 +6,7 @@ import 'package:flutter_web/services/apis.dart';
 
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:http/http.dart' as http;
 
 class ItemsPage extends StatefulWidget {
   static const routeName = '/items-table';
@@ -82,11 +83,33 @@ class _ItemsPageState extends State<ItemsPage> {
           numeric: true,
         ),
         DataColumn(
-          label: Text('BUYING PRICE'),
+          label: Column(
+            children: [
+              Expanded(
+                child: Text('BUYING'),
+              ),
+              Expanded(
+                child: Text('PRICE'),
+              ),
+            ],
+          ),
           numeric: true,
         ),
         DataColumn(
-          label: Text('SELLING PRICE'),
+          label: Column(
+            children: [
+              Expanded(
+                child: Text('SELLING'),
+              ),
+              Expanded(
+                child: Text('PRICE'),
+              ),
+            ],
+          ),
+          numeric: true,
+        ),
+        DataColumn(
+          label: Text('   '),
           numeric: true,
         ),
       ],
@@ -109,10 +132,40 @@ class _ItemsPageState extends State<ItemsPage> {
                     onTap: () => openAddItemPopup(context, item, true)),
                 DataCell(Text(item.sellingPrice.toString()),
                     onTap: () => openAddItemPopup(context, item, true)),
+                DataCell(
+                    Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ), onTap: () {
+                  openDeleteItemPopup(context, item.id);
+                }),
               ],
             ),
       ],
     );
+  }
+
+  openDeleteItemPopup(BuildContext context, String itemId) {
+    bool isSuccess = false;
+    Alert(
+        context: context,
+        type: isSuccess ? AlertType.success : AlertType.warning,
+        desc: 'Item successfully deleted',
+        title: 'Delete Item',
+        buttons: [
+          DialogButton(
+            child: Text(
+              'Delete',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            onPressed: () {
+              http.Response response;
+              APIs().deleteItem(itemId).then((value) => response = value);
+              print(response);
+              Navigator.of(context).pop();
+            },
+          ),
+        ]).show();
   }
 
   openAddItemPopup(BuildContext context, Item item, bool isEdit) {
