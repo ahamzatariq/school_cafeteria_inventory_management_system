@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:flutter_web/models/item.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -147,7 +148,9 @@ class _DashboardPageState extends State<DashboardPage> {
           ? FloatingActionButton(
               child: Icon(Icons.add),
               onPressed: () {
-                ItemsPage().createState().openAddItemPopup(context);
+                ItemsPage()
+                    .createState()
+                    .openAddItemPopup(context, new Item(), false);
               },
             )
           : null,
